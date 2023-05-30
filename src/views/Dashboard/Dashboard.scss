@@ -1,0 +1,39 @@
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
+.date-input {
+  cursor: pointer;
+}
+
+.chart-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-datepicker-popper {
+  z-index: 9999 !important;
+}
+
+.card-body {
+  min-height: 240px;
+  .chart-wrapper {
+    min-height: 100%;
+  }
+}
+
+.card-body-unset {
+  min-height: unset;
+}
+
+.tab-pane.active {
+  overflow-x: hidden;
+}
+
+.react-datepicker__input-container {
+  margin-bottom: 0;
+}
+.react-datepicker{
+  z-index: 9999 !important;
+}
