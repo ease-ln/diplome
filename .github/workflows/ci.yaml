@@ -42,7 +42,7 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-buildx-
 
-        - uses: docker-practice/actions-setup-docker@master
+        # - uses: docker-practice/actions-setup-docker@master
 
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v1
