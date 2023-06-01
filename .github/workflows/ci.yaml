@@ -22,6 +22,8 @@ jobs:
         run: npm install #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
       - name: Test by Jest
         run: yarn test
+      - name: start yarn
+        run: yarn start
         continue-on-error: true
 
   production:
@@ -67,8 +69,4 @@ jobs:
             tags: nailyav/innometrics:latest
             cache-from: type=registry,ref=nailyav/innometrics:buildcache
             cache-to: type=registry,ref=nailyav/innometrics:buildcache,mode=max
-
-        - name: Start container
-          run: yarn start
-
             
