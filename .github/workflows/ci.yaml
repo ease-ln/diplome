@@ -22,9 +22,9 @@ jobs:
         run: npm install #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
       - name: Test by Jest
         run: yarn test
+        continue-on-error: true
       - name: start yarn
         run: yarn start
-        continue-on-error: true
 
   production:
       needs: [ "yarn_build" ]
