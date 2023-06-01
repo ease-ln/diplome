@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 10.x
-          cache: yarn
+          # cache: yarn
       # - name: install yarn
       #   run: yarn
       - name: clean cache
@@ -21,7 +21,7 @@ jobs:
       # - name: browser list
       #   run: npx browserslist@latest --update-db
       - name: Install dependencies
-        run: npm install #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
+        run: yarn #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
       - name: Test by Jest
         run: yarn test
         continue-on-error: true
