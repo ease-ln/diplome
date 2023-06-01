@@ -67,6 +67,6 @@ jobs:
             cache-to: type=registry,ref=nailyav/innometrics:buildcache,mode=max
 
         - name: Start container
-          run: docker run --rm --publish 3000:3000 nailyav/innometrics:latest
+          run: yarn start
 
             
