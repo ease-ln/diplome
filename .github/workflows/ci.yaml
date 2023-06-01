@@ -8,22 +8,17 @@ jobs:
     runs-on: self-hosted
       
     steps:
-      - uses: actions/checkout@v3
-      - name: Set up Node 10.x ${{ matrix.os }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
         with:
-          node-version: 10.x
-          # cache: yarn
-      # - name: install yarn
-      #   run: yarn
-      - name: clean cache
-        run: yarn cache clean
-      # - name: browser list
-      #   run: npx browserslist@latest --update-db
-      - name: Install dependencies
-        run: yarn #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
-      - name: Test by Jest
-        run: yarn test
+          node-version: ${{ matrix.node-version }}
+      - name: npm install, build, and test
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+          npm install yarn -g
+          yarn
+          yarn test
         continue-on-error: true
 
   production:
