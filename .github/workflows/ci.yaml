@@ -5,10 +5,7 @@ on: [push]
 jobs:
   yarn_build:
 
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: self-hosted
       
     steps:
       - uses: actions/checkout@v3
