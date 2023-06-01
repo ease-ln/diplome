@@ -1,0 +1,28 @@
+name: Yarn package
+
+on: [push]
+
+jobs:
+  yarn_build:
+
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+      
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node 10.x ${{ matrix.os }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 10.x
+          cache: npm
+      - name: clean cache
+        run: yarn cache clean
+      # - name: browser list
+      #   run: npx browserslist@latest --update-db
+      - name: Install dependencies
+        run: npm install #--legacy-peer-deps --force # npm install --legacy-peer-depsarc 
+      - name: Test by Jest
+        run: yarn test
+        continue-on-error: true
