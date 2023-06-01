@@ -13,7 +13,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 10.x
-          cache: [npm, yarn]
+          cache: 
+            - npm
+            - yarn
       - name: install yarn
         run: npm install yarn
       - name: clean cache
