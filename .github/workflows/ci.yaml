@@ -14,8 +14,9 @@ jobs:
         with:
           node-version: 10.x
           cache: npm
+      - name: install yarn
+        run: npm install yarn
       - name: clean cache
-      - name: clean install yarn
         run: yarn cache clean
       # - name: browser list
       #   run: npx browserslist@latest --update-db
