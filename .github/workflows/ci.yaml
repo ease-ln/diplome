@@ -13,11 +13,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 10.x
-          cache: 
-            - npm
-            - yarn
+          cache: yarn
       - name: install yarn
-        run: npm install yarn
+        run: yarn
       - name: clean cache
         run: yarn cache clean
       # - name: browser list
