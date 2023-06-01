@@ -42,8 +42,6 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-buildx-
 
-        # - uses: docker-practice/actions-setup-docker@master
-
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v1
 
@@ -67,3 +65,8 @@ jobs:
             tags: nailyav/innometrics:latest
             cache-from: type=registry,ref=nailyav/innometrics:buildcache
             cache-to: type=registry,ref=nailyav/innometrics:buildcache,mode=max
+
+        - name: Start container
+          run: docker run --rm --publish 3000:3000 nailyav/innometrics:latest
+
+            
