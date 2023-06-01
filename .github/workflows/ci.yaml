@@ -14,8 +14,8 @@ jobs:
         with:
           node-version: 10.x
           cache: yarn
-      - name: install yarn
-        run: yarn
+      # - name: install yarn
+      #   run: yarn
       - name: clean cache
         run: yarn cache clean
       # - name: browser list
