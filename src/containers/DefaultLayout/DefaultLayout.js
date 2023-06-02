@@ -24,7 +24,6 @@ import routes from '../../routes'
 import {connect} from 'react-redux'
 import {loggedIn} from '../../redux/auth/selectors'
 import {logout} from '../../redux/common/flows'
-import dataFlow from '../../assets/img/brand/dataflow.svg'
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'))
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'))

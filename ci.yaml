@@ -1,6 +1,11 @@
 name: Yarn package
 
-on: [push]
+on: 
+  push:
+    branches:
+      - newDev
+  repository_dispatch:
+    type: common-trigger
 
 jobs:
   yarn_build:
@@ -73,3 +78,4 @@ jobs:
             tags: nailyav/innometrics:latest
             cache-from: type=registry,ref=nailyav/innometrics:buildcache
             cache-to: type=registry,ref=nailyav/innometrics:buildcache,mode=max
+            

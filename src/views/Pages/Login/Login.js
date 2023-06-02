@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import cookie from "react-cookie";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
 import { loginFlow, logout } from "../../../redux/common/flows";
 import { loggedIn } from "../../../redux/auth/selectors";
@@ -70,7 +69,6 @@ class Login extends Component {
   }
 
   toggle = (message) => {
-    // todo: this should be uncommented
     if (this.props.auth.loggedIn) return;
 
     let newState = {
@@ -168,7 +166,7 @@ class Login extends Component {
                         </Col>
 
                         <Col xs="6" className="text-right">
-                          <Link to="/forgot" disabled>
+                          <Link to="/forgot">
                             <Button color="link" className="px-0" disabled>
                               Forgot password?
                             </Button>

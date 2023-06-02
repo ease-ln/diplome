@@ -37,19 +37,11 @@ export default {
       name: "Integrations",
       url: '/agentMenu',
       icon: 'icon-speech',
-      // badge: {
-      //   variant: 'success',
-      //   text: 'NEW',
-      // },
     },
     {
       name: 'GQM Config',
       url: 'gqm',
       icon: 'icon-question',
-      // badge: {
-      //   variant: 'success',
-      //   text: 'NEW',
-      // },
     },
     {
       name: 'Data Collector',

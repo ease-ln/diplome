@@ -30,7 +30,7 @@ const agentsKey = "agents";
 const agentProjectsKey = (agentId) => `agent-${agentId}-projectList`;
 
 export const actionCreator = {
-  fetchAgents: (token, projectId) => (dispatch) => {
+  fetchAgents: (token, projectId) => async (dispatch) => {
     return fetchAgents(token, projectId)
       .then((response) => {
         if (response.agentList) {
@@ -43,7 +43,7 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  getAgent: (token, id) => (dispatch) => {
+  getAgent: (token, id) => async (dispatch) => {
     return getAgent(token, id)
       .then((response) => {
         dispatch(actions.getAgent(response));
@@ -51,28 +51,28 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  postAgent: (token, data) => () => {
+  postAgent: (token, data) => async () => {
     return postAgent(token, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  putAgent: (token, id, data) => () => {
+  putAgent: (token, id, data) => async () => {
     return putAgent(token, id, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  deleteAgent: (token, id) => () => {
+  deleteAgent: (token, id) => async () => {
     return deleteAgent(token, id)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  getMethod: (token, id) => (dispatch) => {
+  getMethod: (token, id) => async (dispatch) => {
     return getMethod(token, id)
       .then((response) => {
         dispatch(actions.getMethod(response));
@@ -80,28 +80,28 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  postMethod: (token, data) => () => {
+  postMethod: (token, data) => async () => {
     return postMethod(token, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  putMethod: (token, id, data) => () => {
+  putMethod: (token, id, data) => async () => {
     return putMethod(token, id, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  deleteMethod: (token, id) => () => {
+  deleteMethod: (token, id) => async () => {
     return deleteMethod(token, id)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  getDetail: (token, id) => (dispatch) => {
+  getDetail: (token, id) => async (dispatch) => {
     return getDetail(token, id)
       .then((response) => {
         dispatch(actions.getDetail(response));
@@ -109,28 +109,28 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  postDetail: (token, data) => () => {
+  postDetail: (token, data) => async () => {
     return postDetail(token, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  putDetail: (token, id, data) => () => {
+  putDetail: (token, id, data) => async () => {
     return putDetail(token, id, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  deleteDetail: (token, id) => () => {
+  deleteDetail: (token, id) => async () => {
     return deleteDetail(token, id)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  getResponse: (token, id) => (dispatch) => {
+  getResponse: (token, id) => async (dispatch) => {
     return getResponse(token, id)
       .then((response) => {
         dispatch(actions.getResponse(response));
@@ -138,28 +138,28 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  postResponse: (token, data) => () => {
+  postResponse: (token, data) => async () => {
     return postResponse(token, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  putResponse: (token, id, data) => () => {
+  putResponse: (token, id, data) => async () => {
     return putResponse(token, id, data)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  deleteResponse: (token, id) => () => {
+  deleteResponse: (token, id) => async () => {
     return deleteResponse(token, id)
       .then((response) => {
         return response;
       })
       .catch((err) => false);
   },
-  fetchAgentMethods: (token, id) => (dispatch) => {
+  fetchAgentMethods: (token, id) => async (dispatch) => {
     return fetchAgentMethods(token, id)
       .then((response) => {
         dispatch(actions.fetchMethods(response));
@@ -167,7 +167,7 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  fetchAgentDetails: (token, id) => (dispatch) => {
+  fetchAgentDetails: (token, id) => async (dispatch) => {
     return fetchAgentDetails(token, id)
       .then((response) => {
         dispatch(actions.fetchDetails(response));
@@ -175,7 +175,7 @@ export const actionCreator = {
       })
       .catch((err) => false);
   },
-  fetchAgentResponses: (token, id) => (dispatch) => {
+  fetchAgentResponses: (token, id) => async (dispatch) => {
     return fetchAgentResponses(token, id)
       .then((response) => {
         dispatch(actions.fetchResponses(response));
@@ -186,7 +186,7 @@ export const actionCreator = {
   beginOauth: (token, agentId, projectId, cb) => (dispatch) => {
     return beginOauth(token, agentId, projectId, cb);
   },
-  fetchProjectList: (token, agentId, projectId) => (dispatch) => {
+  fetchProjectList: (token, agentId, projectId) => async (dispatch) => {
     return fetchProjectList(token, agentId, projectId)
       .then((response) => {
         if (response.projectList) {

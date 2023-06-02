@@ -2,12 +2,9 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button,
   Input,
+  Button,
+  Container,
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -29,25 +26,27 @@ class CreateNewAgent extends Component {
     authorizationbaseurl: '',
     requesttokenendpoint: '',
     apikey: '',
-    apisecret: ''
+    apisecret: '',
+    modified: false,
   }
 
   handleChange = (k) => (e) => {
     const key = k.toLowerCase()
-    this.setState({[key]: e.target.value})
+    this.setState({[key]: e.target.value, modified: true})
   }
+
   handleCheck = (e) => {
-    const key = "isconnected"
-    this.setState({[key]: e.target.checked})
+    this.setState({isconnected: e.target.checked})
   }
+
   Create = async () => {
     const payload = {
       ...(this.state)
     }
     for (const v in payload){
-      if(payload[v] === "")payload[v] = null
-      if(payload[v] === false)payload[v] = "N"
-      if(payload[v] === true)payload[v] = "Y"
+      if (payload[v] === "") payload[v] = null;
+      if (payload[v] === false) payload[v] = "N";
+      if (payload[v] === true) payload[v] = "Y";
     }
     try {
       const token = getData(localStorageKey).token
@@ -58,61 +57,227 @@ class CreateNewAgent extends Component {
       console.log(e.stack)
     }
     finally {
+      console.log(this.state)
       this.props.history.push("/agentMenu")
     }
   }
+
   render() {
-    const {isconnected, ...agentStateData} = this.state
+    const style = (className) => {
+      if (className === "save"){
+        return {
+          position: "absolute",
+          top: "0px",
+          right: "0px",
+        }
+      }
+      if (className === "h4"){
+        return {
+          paddingRight: "0px",
+          paddingLeft: "0px",
+          marginBottom: "20px",
+          color: "#73818F",
+        }
+      }
+      if (className === "flex-row"){
+        return {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingRight: "0px",
+          paddingLeft: "0px",
+          marginBottom: "20px",
+        }
+      } 
+      if (className === "input"){
+        return {
+          display: "inline-block", 
+          verticalAlign: "middle",
+          width: "280px",
+        }
+      }
+    }
+
+    const {isconnected, modified, ...agentStateData} = this.state
+    
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Create new Agent
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      isconnected
-                    </td>
-                    <td>
-                      <Input
-                        type="checkbox"
-                        name="isconnected"
-                        value={isconnected}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.Create}>
-                    Create
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+      <div className="animated fadeIn" style={{ margin: "0 auto", position: "relative"}}>
+        <h3 style={{ marginBottom: "20px" }}>Create new agent</h3>
+        <Card style={{ margin: "0 auto", marginBottom: "40px", width: "482px", backgroundColor: "#F7FAFC" }}>
+          <CardBody>
+            <h4 style={style("h4")}>Agent info</h4>
+            {Object.keys(agentStateData).map((key) => {
+              switch (key){
+                case "agentname": return (
+                  <Container style={style("flex-row")}>
+                    <div>Agent name</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "description": return (
+                  <Container style={style("flex-row")}>
+                    <div>Description</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "sourcetype": return (
+                  <Container style={style("flex-row")}>
+                    <div>Source type</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "dbschemasource": return (
+                  <Container style={style("flex-row")}>
+                    <div>DB schema source</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "repoidfield": return (
+                  <Container style={style("flex-row")}>
+                    <div>Repository ID</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "oauthuri": return (
+                  <Container style={style("flex-row")}>
+                    <div>OAuth URI</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "authenticationmethod": return (
+                  <Container style={style("flex-row")}>
+                    <div>Authentication method</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "accesstokenendpoint": return (
+                  <Container style={style("flex-row")}>
+                    <div>Access token</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "authorizationbaseurl": return (
+                  <Container style={style("flex-row")}>
+                    <div>Authorization base URL</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "requesttokenendpoint": return (
+                  <Container style={style("flex-row")}>
+                    <div>Request token</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "apikey": return (
+                  <Container style={style("flex-row")}>
+                    <div>API key</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+                case "apisecret": return (
+                  <Container style={style("flex-row")}>
+                    <div>API secret</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+              } 
+            })}
+            <Container style={style("flex-row")}>
+              <div>Connected</div>
+              <Input
+                type="checkbox"
+                name="isconnected"
+                value={isconnected}
+                style={{ marginLeft: "160px", }}
+                onChange={this.handleCheck}
+              />
+            </Container>
+          </CardBody>
+        </Card>
+        <>
+          <Button 
+            color="primary" 
+            style={style("save")} 
+            onClick={this.Create} 
+            disabled={!modified}
+          >
+            <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+            Create agent
+          </Button>
+        </>
       </div>
     )
   }

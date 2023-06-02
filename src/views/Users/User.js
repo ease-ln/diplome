@@ -36,12 +36,12 @@ class User extends Component {
     try{
       postDataFlow(data)
       .then(() => {
-        this.setState({error: "success"});
+        this.setState({error: "none"});
       })
       if (this.state.password !== undefined){
         changePasswordFlow({ password: this.state.password })
         .then(() => {
-          this.setState({error: "success"});
+          this.setState({error: "none"});
         })
       }
     } catch(e) {
@@ -61,7 +61,7 @@ class User extends Component {
         : userList.find((user) => user.id.toString() === this.props.match.params.id)
 
       return user;
-    } catch(e) {
+    } catch(_) {
       return null;
     }
   }
@@ -124,7 +124,7 @@ class User extends Component {
 
     return (
       <div className="animated fadeIn" style={{ margin: "0 auto", position: "relative"}}>
-        {this.state.error === "success" && (
+        {this.state.error === "none" && (
           <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}><AlertSuccess/></div>
         )}
         <h3 style={{ marginBottom: "20px" }}>My profile</h3>

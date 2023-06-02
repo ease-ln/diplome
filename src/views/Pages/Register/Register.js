@@ -15,13 +15,15 @@ import {
 } from "reactstrap";
 import { saveUser } from '../../../views/GQMConfig/GQM/GQMHelper'
 import { useCookies } from 'react-cookie';
+import { connect } from "react-redux";
+import { Link, withRouter } from "react-router-dom";
 
 // redux
 import { registerFlow } from "../../../redux/common/flows";
 
 import { isEmail } from "../Login/Login.helper";
 
-function Register() {
+function Register(props) {
 
   const [error, setError] = useState({
     firstName: "",
@@ -105,6 +107,7 @@ function Register() {
         saveUser(email, password).then((resp) => {
           setToken('mr-token', resp.token)
         })
+        props.history.push("/dashboard")
     })
     .catch((e) => {setError({auth: "Username already exists."})})
 
@@ -202,6 +205,11 @@ function Register() {
                   <Button color="primary" block>
                     Create Account
                   </Button>
+                  <Link to="/login" style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                      <Button color="link" className="px-0">
+                        Already have an account? Sign In
+                      </Button>
+                  </Link>
                 </Form>
               </CardBody>
             </Card>
@@ -212,4 +220,6 @@ function Register() {
   );
 }
 
-export default Register;
+export default withRouter(
+  connect()(Register)
+);

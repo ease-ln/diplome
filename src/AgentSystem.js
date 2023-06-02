@@ -14,7 +14,6 @@ export function getAgentSystem(){
           return 'https://innometric.guru/files/collectors-files/linux_collector/dataCollector_1.0.2.zip';
       }
     } catch (error) {
-      // TODO: remove console.log
       console.log(error);
     }
   }

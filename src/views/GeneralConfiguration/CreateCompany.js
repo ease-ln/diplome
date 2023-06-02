@@ -2,12 +2,9 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button,
   Input,
+  Button,
+  Container,
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -19,24 +16,26 @@ class CreateCompany extends Component {
   state = {
     isactive: false,
     companyname: '',
+    modified: false,
   }
 
   handleChange = (k) => (e) => {
     const key = k.toLowerCase()
-    this.setState({[key]: e.target.value})
+    this.setState({[key]: e.target.value, modified: true})
   }
+
   handleCheck = (e) => {
-    const key = "isactive"
-    this.setState({[key]: e.target.checked})
+    this.setState({isactive: e.target.checked})
   }
+
   Create = async () => {
     const payload = {
       ...(this.state)
     }
     for (const v in payload){
-      if(payload[v] === "")payload[v] = null
-      if(payload[v] === false)payload[v] = "N"
-      if(payload[v] === true)payload[v] = "Y"
+      if (payload[v] === "") payload[v] = null
+      if (payload[v] === false) payload[v] = "N"
+      if (payload[v] === true) payload[v] = "Y"
     }
     try{
       const token = getData(localStorageKey).token
@@ -51,57 +50,88 @@ class CreateCompany extends Component {
     }
   }
   render() {
-    const {isactive, ...agentStateData} = this.state
+    const style = (className) => {
+      if (className === "save"){
+        return {
+          position: "absolute",
+          top: "0px",
+          right: "0px",
+        }
+      }
+      if (className === "h4"){
+        return {
+          paddingRight: "0px",
+          paddingLeft: "0px",
+          marginBottom: "20px",
+          color: "#73818F",
+        }
+      }
+      if (className === "flex-row"){
+        return {
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between",
+          paddingRight: "0px",
+          paddingLeft: "0px",
+          marginBottom: "20px",
+        }
+      } 
+      if (className === "input"){
+        return {
+          display: "inline-block", 
+          verticalAlign: "middle",
+          width: "280px",
+        }
+      }
+    }
+
+    const {isactive, modified, ...agentStateData} = this.state
     return (
-      <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Create Company Config
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      isActive
-                    </td>
-                    <td>
-                      <Input
-                        type="checkbox"
-                        name="isactive"
-                        value={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.Create}>
-                    Create
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+      <div className="animated fadeIn" style={{ margin: "0 auto", position: "relative"}}>
+        <h3 style={{ marginBottom: "20px" }}>Create new company</h3>
+        <Card style={{ margin: "0 auto", marginBottom: "40px", width: "482px", backgroundColor: "#F7FAFC" }}>
+          <CardBody>
+            <h4 style={style("h4")}>Company info</h4>
+            {Object.keys(agentStateData).map((key) => {
+              switch (key){
+                case "companyname": return (
+                  <Container style={style("flex-row")}>
+                    <div>Company name</div>
+                    <Input
+                      type="text"
+                      name={key}
+                      value={agentStateData[key]}
+                      style={style("input")}
+                      onChange={this.handleChange(key)}
+                    />
+                  </Container>
+                )
+              } 
+            })}
+            <Container style={style("flex-row")}>
+              <div>Active</div>
+              <Input
+                type="checkbox"
+                name="isactive"
+                value={isactive}
+                style={{ marginLeft: "160px", }}
+                onChange={this.handleCheck}
+              />
+            </Container>
+          </CardBody>
+        </Card>
+        <>
+          <Button 
+            color="primary" 
+            style={style("save")} 
+            onClick={this.Create} 
+            disabled={!modified}
+          >
+            <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+            Create company
+          </Button>
+        </>
       </div>
     )
   }
