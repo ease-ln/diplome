@@ -24,7 +24,7 @@ jobs:
         run: yarn test
         continue-on-error: true
       - name: start yarn
-        run: yarn start
+        run: sudo docker-compose -f docker-compose.dev.yml build | sudo docker-compose -f docker-compose.dev.yml up -d
 
   production:
       needs: [ "yarn_build" ]
