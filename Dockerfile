@@ -16,4 +16,4 @@ RUN rm -rf package-lock.json
 RUN npm install react-scripts
 RUN npm install
 ADD . .
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "start"] 
