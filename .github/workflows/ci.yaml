@@ -1,7 +1,7 @@
 name: Yarn package
 
 env:
-  IMAGE: nailyav/innometrics:latest
+  IMAGE: easeln/innometrics:latest
   DOKKU_APP_URL: 'ssh://dokku@51.250.3.9/diplome'
 
 on: [push]
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node 10.x ${{ matrix.os }}
         uses: actions/setup-node@v3
         with:
-          node-version: 10.x
+          node-version: 10.24.1
           cache: npm
       - name: clean cache
         run: yarn cache clean
@@ -75,8 +75,8 @@ jobs:
             builder: ${{ steps.buildx.outputs.name }}
             push: true
             tags: ${{ env.IMAGE }}
-            cache-from: type=registry,ref=nailyav/innometrics:buildcache
-            cache-to: type=registry,ref=nailyav/innometrics:buildcache,mode=max
+            cache-from: type=registry,ref=easeln/innometrics:buildcache
+            cache-to: type=registry,ref=easeln/innometrics:buildcache,mode=max
 
   push_to_dokku:
     name: Push to Dokku
