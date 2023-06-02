@@ -1,6 +1,5 @@
 FROM node:13-alpine
-EXPOSE 3000
-WORKDIR /app
+
 ADD package-lock.json /package-lock.json
 ADD package.json /package.json
 
@@ -13,3 +12,5 @@ WORKDIR /app
 ADD . /app
 
 RUN yarn build
+
+EXPOSE 3000
