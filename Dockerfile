@@ -1,1 +1,6 @@
-FROM dokku/ci-docker-image:0.7.0
+FROM node:12-alpine
+EXPOSE 3000
+WORKDIR /app
+ADD . .
+RUN yarn install
+CMD ["yarn", "start"]
