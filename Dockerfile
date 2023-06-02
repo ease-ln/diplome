@@ -12,4 +12,4 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 ADD . .
 RUN yarn cache clean
 RUN npm install 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]
