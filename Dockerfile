@@ -14,6 +14,7 @@ RUN npm --version
 RUN rm -rf node_modules
 RUN rm -rf package-lock.json
 RUN npm install react-scripts
+RUN npm install yarn
 RUN npm install
 ADD . .
 CMD ["npm", "run", "start"] 
