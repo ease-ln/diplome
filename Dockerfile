@@ -5,12 +5,12 @@ ADD package.json /package.json
 
 # Again, I'm using yarn. Use npm install in case you're using npm
 # Not sure why production should be false, but I had some issues when using regular yarn install
-RUN yarn install --production=false
+RUN npm install --production=false
 
 # Adding the actual code
 WORKDIR /app
 ADD . /app
 
-RUN yarn build
+RUN nom run build
 
 EXPOSE 3000
