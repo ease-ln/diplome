@@ -1,3 +1,4 @@
+FROM buildpack-deps:jessie
 EXPOSE 3000
 WORKDIR opt/app
 RUN apt install curl
