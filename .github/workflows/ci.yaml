@@ -4,7 +4,7 @@ env:
   IMAGE: easeln/innometrics:latest
   DOKKU_APP_URL: 'ssh://dokku@51.250.3.9/diplome'
 
-on: [push]
+on: push
 
 jobs:
   # yarn_build:
