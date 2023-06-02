@@ -68,7 +68,7 @@ jobs:
             password: dckr_pat_aFmkm4OXdUgCMbEfu-4nd74ZXHg
 
         - name: Build and push
-          uses: docker/login-action@v3
+        uses: docker/build-push-action@v3
           with:
             context: .
             file: ./Dockerfile
