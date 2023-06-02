@@ -1,11 +1,19 @@
 name: Yarn package
 
-on: [push]
+on: 
+  push:
+    branches:
+      - newDev
+  repository_dispatch:
+    type: common-trigger
 
 jobs:
   yarn_build:
 
-    runs-on: self-hosted
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
       
     steps:
       - uses: actions/checkout@v3
@@ -23,13 +31,14 @@ jobs:
       - name: Test by Jest
         run: yarn test
         continue-on-error: true
-      - name: start yarn
-        run: sudo docker-compose -f docker-compose.yml build | sudo docker-compose -f docker-compose.yml up -d
 
   production:
       needs: [ "yarn_build" ]
       name: Push Docker image to Docker Hub
-      runs-on: self-hosted
+      runs-on: ${{ matrix.os }}
+      strategy:
+        matrix:
+          os: [ubuntu-latest]
       steps:
         - name: Checkout
           uses: actions/checkout@v2
@@ -41,10 +50,10 @@ jobs:
             restore-keys: |
               ${{ runner.os }}-buildx-
 
-        # - uses: docker-practice/actions-setup-docker@master
-        #   with:
-        #     docker_version: 20.10
-        #     docker_channel: stable
+        - uses: docker-practice/actions-setup-docker@master
+          with:
+            docker_version: 20.10
+            docker_channel: stable
 
         - name: Set up QEMU
           uses: docker/setup-qemu-action@v1
