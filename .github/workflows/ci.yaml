@@ -84,7 +84,8 @@ jobs:
     needs: production
     steps:
       - name: Push to dokku
-        uses: dokku/github-action@master
+        # uses: dokku/github-action@master
+        run: /usr/bin/docker build -t ed866e:2d96ae6238d542d3b26f5297b4846f53 -f "/home/runner/work/_actions/dokku/github-action/master/Dockerfile" "/home/runner/work/_actions/dokku/github-action/master"
         with:
           git_remote_url: ${{ env.DOKKU_APP_URL }}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
