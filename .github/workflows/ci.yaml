@@ -1,8 +1,6 @@
 name: Yarn package
 
 on: [push]
-  repository_dispatch:
-    type: common-trigger
 
 jobs:
   yarn_build:
