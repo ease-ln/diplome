@@ -1,9 +1,6 @@
 name: Yarn package
 
-on: 
-  push:
-    branches:
-      - newDev
+on: [push]
   repository_dispatch:
     type: common-trigger
 
