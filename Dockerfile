@@ -1,9 +1,6 @@
 FROM buildpack-deps:jessie
 EXPOSE 3000
 WORKDIR opt/app
-RUN apt install curl
-RUN curl -sL https://deb.nodesource.com/setup_10.x | -E bash -
-RUN apt install nodejs
 ENV NODE_VERSION=10.24.1
 RUN apt install -y curl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
