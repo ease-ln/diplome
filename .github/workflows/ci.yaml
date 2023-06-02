@@ -2,7 +2,7 @@ name: Yarn package
 
 env:
   IMAGE: nailyav/innometrics:latest
-  DOKKU_APP_URL: 'ssh://dokku@851.250.3.9/diplome'
+  DOKKU_APP_URL: 'ssh://dokku@51.250.3.9/diplome'
 
 on: [push]
 
