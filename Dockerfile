@@ -11,6 +11,6 @@ RUN npm install
 WORKDIR /app
 ADD . /app
 
-RUN nom run build
+RUN nom run start
 
 EXPOSE 3000
