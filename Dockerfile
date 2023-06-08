@@ -1,6 +1,6 @@
-FROM node:12-alpine
+ROM node:12-alpine
 EXPOSE 3000
-WORKDIR /
+WORKDIR /app
 ADD . .
 RUN yarn install
 CMD ["yarn", "start"]
