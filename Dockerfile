@@ -2,7 +2,7 @@ FROM node:12-alpine as builder
 EXPOSE 3000
 WORKDIR /app
 ADD . .
-RUN yarn install
+RUN npm install
 RUN yarn build
 
 # Bundle static assets with nginx
