@@ -30,7 +30,7 @@ const DefaultFooter = React.lazy(() => import('./DefaultFooter'))
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'))
 
 const objectWithoutKey = (object, key) => {
-  const {[key]: deletedKey, ...otherKeys} = object
+  const {[key]: _, ...otherKeys} = object
   return otherKeys
 }
 
@@ -102,7 +102,7 @@ class DefaultLayout extends Component {
                   {routes.map((route, idx) => {
                     return route.component ? (
                       <Route
-                        key={idx}
+                        key={`${route.name}`}
                         path={route.path}
                         exact={route.exact}
                         name={route.name}
