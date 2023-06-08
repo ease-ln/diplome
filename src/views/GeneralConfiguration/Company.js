@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
@@ -9,12 +9,12 @@ import {
   Button,
   Input, CustomInput,
 } from 'reactstrap'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
-import {connect} from 'react-redux'
-import {fromJS} from 'immutable'
-import {getData, localStorageKey} from "../../redux/utils";
-import {actionCreator} from "../../redux/generalConfiguration/action-creators";
+import { connect } from 'react-redux'
+import { fromJS } from 'immutable'
+import { getData, localStorageKey } from "../../redux/utils";
+import { actionCreator } from "../../redux/generalConfiguration/action-creators";
 
 class Company extends Component {
   state = {}
@@ -34,51 +34,61 @@ class Company extends Component {
     this.props.history.push(this.props.history.location.pathname + '/teams')
   }
   save = async () => {
-    const payload = {}
+    const payload = {};
     for (const v in this.state){
-      if(this.state[v] === ""){payload[v] = null;continue;}
-      if(v ==="isactive"){payload[v] = this.state[v] ? "Y" : "N";continue;}
-      if(v === "updateby")continue
-      if(v === "createdby")continue
-      if(v === "lastupdate")continue
-      if(v === "creationdate")continue
-      payload[v] = this.state[v]
+      if (this.state[v] === ""){ 
+        payload[v] = null; 
+        continue;
+      }
+      if (v ==="isactive") {
+        payload[v] = this.state[v] ? "Y" : "N"; 
+        continue;
+      }
+      if (v === "updateby") continue;
+      if (v === "createdby") continue;
+      if (v === "lastupdate") continue;
+      if (v === "creationdate") continue;
+      payload[v] = this.state[v];
     }
-    try{
-      const id = this.props.match.params.id1
-      const token = getData(localStorageKey).token
-      await actionCreator.putCompany(token, id, payload)()
-      await actionCreator.fetchCompanies(token)(this.props.dispatch)
+    try {
+      const id = this.props.match.params.id1;
+      const token = getData(localStorageKey).token;
+      await actionCreator.putCompany(token, id, payload)();
+      await actionCreator.fetchCompanies(token)(this.props.dispatch);
     }
-    catch(e){console.log(e.stack)}
-    finally{
-      const url = `/company`
-      this.props.history.push(url)
+    catch(e) {
+      console.log(e.stack);
+    }
+    finally {
+      const url = `/company`;
+      this.props.history.push(url);
     }
   }
   remove = async () => {
-    try{
-      const id = this.props.match.params.id1
-      const token = getData(localStorageKey).token
-      await actionCreator.deleteCompany(token, id)()
-      await actionCreator.fetchCompanies(token)(this.props.dispatch)
+    try {
+      const id = this.props.match.params.id1;
+      const token = getData(localStorageKey).token;
+      await actionCreator.deleteCompany(token, id)();
+      await actionCreator.fetchCompanies(token)(this.props.dispatch);
     }
-    catch(e){console.log(e.stack)}
-    finally{
-      const url = `/company`
-      this.props.history.push(url)
+    catch(e) {
+      console.log(e.stack);
+    }
+    finally {
+      const url = `/company`;
+      this.props.history.push(url);
     }
   }
   async componentDidMount(){
     const token = getData(localStorageKey).token;
-    const id = this.props.match.params.id1
-    await actionCreator.getCompany(token, id)(this.props.dispatch)
-    const obj = {}
-    Object.entries(this.props.company).forEach(([k,v])=>{
-      if(k==="isactive")obj[k] = v === "Y"
+    const id = this.props.match.params.id1;
+    await actionCreator.getCompany(token, id)(this.props.dispatch);
+    const obj = {};
+    Object.entries(this.props.company).forEach(([k, v]) => {
+      if (k === "isactive") obj[k] = v === "Y"
       else obj[k] = v
     })
-    this.setState(obj)
+    this.setState(obj);
   }
   render() {
     const {isactive, companyid, creationdate, createdby, lastupdate, updateby, ...agentStateData} = this.state

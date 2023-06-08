@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import cookie from "react-cookie";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 

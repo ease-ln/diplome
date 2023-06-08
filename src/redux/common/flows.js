@@ -9,7 +9,7 @@ import { createUser } from '../../services/RolesService'
 import { connectProject } from '../../services/AgentService'
 
 import { localStorageKey } from '../utils.js'
-import { loginUser, registerUser } from "../../services/AuthService";
+import { registerUser } from "../../services/AuthService";
 import { changePassword, postData } from '../../services/UsersService'
 
 export const fetchData = (token, email) => (dispatch) => {
@@ -24,7 +24,7 @@ export const fetchData = (token, email) => (dispatch) => {
   dispatch(roles.fetchPermissions(token, email))
 }
 
-export const loginFlow = (email, password) => (dispatch, getState) => {
+export const loginFlow = (email, password) => (dispatch, _getState) => {
   return dispatch(auth.login(email, password)).then((resp) => {
     localStorage.setItem('innometrics-email', JSON.stringify(email))
     if (resp) dispatch(fetchData(resp.token, email))
@@ -33,7 +33,7 @@ export const loginFlow = (email, password) => (dispatch, getState) => {
 
 export const thirdChartData = (email, date, endDate, projectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -43,7 +43,7 @@ export const thirdChartData = (email, date, endDate, projectId) => (
 
 export const timeChartData = (date, endDate, projectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -53,7 +53,7 @@ export const timeChartData = (date, endDate, projectId) => (
 
 export const activitiesChartData = (date, endDate, projectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -63,7 +63,7 @@ export const activitiesChartData = (date, endDate, projectId) => (
 
 export const categoryChartData = (date, endDate, projectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -71,14 +71,14 @@ export const categoryChartData = (date, endDate, projectId) => (
   )
 }
 
-export const projectsData = (email) => (dispatch, getState) => {
+export const projectsData = (email) => (dispatch, _getState) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(projects.fetchProjects(savedData.token, email))
 }
 
 export const numOfClasses = (projectId, SQProjectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -88,7 +88,7 @@ export const numOfClasses = (projectId, SQProjectId) => (
 
 export const LOC = (projectId, SQProjectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -98,7 +98,7 @@ export const LOC = (projectId, SQProjectId) => (
 
 export const codeCoverage = (projectId, SQProjectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(
@@ -121,7 +121,7 @@ export const logout = () => {
 }
 
 export const registerFlow = (firstName, surname, email, password) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
       resolve(registerUser(firstName, surname, email, password))
   })
 }
@@ -131,24 +131,24 @@ export const postDataFlow = (data) => {
   return postData(savedData.token, data)
 }
 
-export const changePasswordFlow = (password) => {
+export const changePasswordFlow = ({password, email}) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
-  return changePassword(savedData.token, password)
+  return changePassword(savedData.token, password, email)
 }
 
-export const oauthFlow = (agentId, projectId, cb) => (dispatch, getState) => {
+export const oauthFlow = (agentId, projectId, cb) => (dispatch, _getState) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(agents.beginOauth(savedData.token, agentId, projectId, cb))
 }
 
-export const refetchAgents = (projectId) => (dispatch, getState) => {
+export const refetchAgents = (projectId) => (dispatch, _getState) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(agents.fetchAgents(savedData.token, projectId))
 }
 
 export const fetchProjectList = (agentId, projectId) => (
   dispatch,
-  getState,
+  _getState,
 ) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(agents.fetchProjectList(savedData.token, agentId, projectId))
@@ -167,12 +167,12 @@ export const fetchSQProjectList = async (projectId) => {
 }
 
 
-export const fetchIndividualActivities = (date) => (dispatch, getState) => {
+export const fetchIndividualActivities = (date) => (dispatch, _getState) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(report.fetchActivitiesForDate(savedData.token, date))
 }
 
-export const deleteActivities = (ids) => (dispatch, getState) => {
+export const deleteActivities = (ids) => (dispatch, _getState) => {
   const savedData = JSON.parse(localStorage.getItem(localStorageKey))
   return dispatch(report.deleteActivities(savedData.token, ids))
 }

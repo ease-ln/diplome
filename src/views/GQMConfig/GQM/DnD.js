@@ -88,18 +88,20 @@ class DnD extends React.Component {
 
     formListOfMetrics = async () => {
         let metrics = await getMetrics()
-        let listOfMetrics = Array.from({ length: metrics.length }, (v, k) => k).map((k) => ({
-            id: `${metrics[k].id}`,
-            content: metrics[k].name,
-        }))
-        let cumulativeLength = await this.cumulativeLength()
-        if (cumulativeLength === 0) {
-            this.setState({ 'bottomItems': listOfMetrics })
-        } else {
-            let filteredMetricsList = this.filterMetrics(listOfMetrics, this.state.question1Items)
-            filteredMetricsList = this.filterMetrics(filteredMetricsList, this.state.question2Items)
-            filteredMetricsList = this.filterMetrics(filteredMetricsList, this.state.question3Items)
-            this.setState({ 'bottomItems': filteredMetricsList })
+        if (metrics && metrics.length) {
+            let listOfMetrics = Array.from({ length: metrics.length }, (v, k) => k).map((k) => ({
+                id: `${metrics[k].id}`,
+                content: metrics[k].name,
+            }))
+            let cumulativeLength = await this.cumulativeLength()
+            if (cumulativeLength === 0) {
+                this.setState({ 'bottomItems': listOfMetrics })
+            } else {
+                let filteredMetricsList = this.filterMetrics(listOfMetrics, this.state.question1Items)
+                filteredMetricsList = this.filterMetrics(filteredMetricsList, this.state.question2Items)
+                filteredMetricsList = this.filterMetrics(filteredMetricsList, this.state.question3Items)
+                this.setState({ 'bottomItems': filteredMetricsList })
+            }
         }
     }
 
@@ -162,6 +164,7 @@ class DnD extends React.Component {
                 await this.saveMetricsForQuestion(result.droppable, this.state.question1.id)
             }
             if (result.droppable2) {
+                
                 this.setState({ question2Items: result.droppable2 })
                 await this.saveMetricsForQuestion(result.droppable2, this.state.question2.id)
             }

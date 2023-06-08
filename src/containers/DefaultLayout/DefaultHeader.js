@@ -16,7 +16,7 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
   render() {
-    const { children, ...attributes } = this.props;
+    // const { children, ...attributes } = this.props;
 
     return (
       <React.Fragment>

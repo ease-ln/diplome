@@ -41,36 +41,37 @@ export const actionCreator = {
           throw new Error("no agentList key found in response");
         }
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
-  getAgent: (token, id) => async (dispatch) => {
-    return getAgent(token, id)
-      .then((response) => {
-        dispatch(actions.getAgent(response));
-        return response;
-      })
-      .catch((err) => false);
+  getAgent: (token, id) => async (dispatch) => { 
+    try {
+      const response = await getAgent(token, id);
+      dispatch(actions.getAgent(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
   postAgent: (token, data) => async () => {
     return postAgent(token, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   putAgent: (token, id, data) => async () => {
     return putAgent(token, id, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   deleteAgent: (token, id) => async () => {
     return deleteAgent(token, id)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   getMethod: (token, id) => async (dispatch) => {
     return getMethod(token, id)
@@ -78,28 +79,28 @@ export const actionCreator = {
         dispatch(actions.getMethod(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   postMethod: (token, data) => async () => {
     return postMethod(token, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   putMethod: (token, id, data) => async () => {
     return putMethod(token, id, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   deleteMethod: (token, id) => async () => {
     return deleteMethod(token, id)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   getDetail: (token, id) => async (dispatch) => {
     return getDetail(token, id)
@@ -107,28 +108,28 @@ export const actionCreator = {
         dispatch(actions.getDetail(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   postDetail: (token, data) => async () => {
     return postDetail(token, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   putDetail: (token, id, data) => async () => {
     return putDetail(token, id, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   deleteDetail: (token, id) => async () => {
     return deleteDetail(token, id)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   getResponse: (token, id) => async (dispatch) => {
     return getResponse(token, id)
@@ -136,28 +137,28 @@ export const actionCreator = {
         dispatch(actions.getResponse(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   postResponse: (token, data) => async () => {
     return postResponse(token, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   putResponse: (token, id, data) => async () => {
     return putResponse(token, id, data)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   deleteResponse: (token, id) => async () => {
     return deleteResponse(token, id)
       .then((response) => {
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   fetchAgentMethods: (token, id) => async (dispatch) => {
     return fetchAgentMethods(token, id)
@@ -165,7 +166,7 @@ export const actionCreator = {
         dispatch(actions.fetchMethods(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   fetchAgentDetails: (token, id) => async (dispatch) => {
     return fetchAgentDetails(token, id)
@@ -173,7 +174,7 @@ export const actionCreator = {
         dispatch(actions.fetchDetails(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   fetchAgentResponses: (token, id) => async (dispatch) => {
     return fetchAgentResponses(token, id)
@@ -181,9 +182,9 @@ export const actionCreator = {
         dispatch(actions.fetchResponses(response));
         return response;
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
-  beginOauth: (token, agentId, projectId, cb) => (dispatch) => {
+  beginOauth: (token, agentId, projectId, cb) => (_dispatch) => {
     return beginOauth(token, agentId, projectId, cb);
   },
   fetchProjectList: (token, agentId, projectId) => async (dispatch) => {
@@ -200,7 +201,7 @@ export const actionCreator = {
           throw new Error("no projectList key found in response");
         }
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   fetchAgentsList: async (token, projectId) => {
     return await fetchAgentsList(token, projectId)
@@ -211,7 +212,7 @@ export const actionCreator = {
           throw new Error("no SQ ProjectList key found in response");
         }
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
   fetchSQProjectList: async (token, projectId) => {
     return await fetchSQProjectList(token, projectId)
@@ -222,6 +223,6 @@ export const actionCreator = {
           throw new Error("no SQ ProjectList key found in response");
         }
       })
-      .catch((err) => false);
+      .catch((_err) => false);
   },
 };

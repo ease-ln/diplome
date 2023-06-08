@@ -9,7 +9,14 @@ export class GQMConfigService {
                 'Content-Type': `${config.CONTENT_TYPES.APPLICATION_JSON}`
             },
             body: JSON.stringify( body )
-        }).then(resp => resp.json())
+        }).then(resp => {
+            if (!resp.ok) {
+              throw new Error(resp.statusText)
+            }
+            return resp.json()
+          }).catch(err=>{
+            console.log(err)
+        })
     }
 
     static loginUser(body) {
@@ -23,12 +30,19 @@ export class GQMConfigService {
     }
 
     static getMetrics() {
-        return fetch(`${config.GQM.URL}:${config.GQM.PORT}/${config.GQM.API}/${config.GQM.METRICS}`, {
+        return fetch(`${config.GQM.URL}:${config.GQM.PORT}/${config.GQM.API}/${config.GQM.METRICS}/`, {
             method: `${config.REQ_TYPES.GET}`,
             headers: {
                 'Content-Type': `${config.CONTENT_TYPES.APPLICATION_JSON}`
             },
-        }).then(resp => resp.json())
+        }).then(resp => {
+            if (!resp.ok) {
+              throw new Error(resp.statusText)
+            }
+            return resp.json()
+          }).catch(err=>{
+            console.log(err)
+        })
     }
 
     static getGoal(token, user_id) {
@@ -38,7 +52,14 @@ export class GQMConfigService {
                 'Content-Type': `${config.CONTENT_TYPES.APPLICATION_JSON}`,
                 'Authorization': `Token ${token}`
             },
-        }).then(resp => resp.json())
+        }).then(response => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          }).catch(err=>{
+          console.log(err)
+      })
     }
 
     static createGoal(token, body) {
@@ -117,8 +138,8 @@ export class GQMConfigService {
     }
 
     static assignMetricsToQuestion(questionId, body) {
-        return fetch(`${config.GQM.URL}:${config.GQM.PORT}/${config.GQM.API}/${config.GQM.QUESTIONS}/${questionId}/${config.GQM.ASSIGN_METRICS}`, {
-            method: `${config.REQ_TYPES.PUT}`,
+        return fetch(`${config.GQM.URL}:${config.GQM.PORT}/${config.GQM.API}/question/${config.GQM.ASSIGN_METRICS}/${questionId}`, {
+            method: 'PATCH', //`${config.REQ_TYPES.POST}`,
             headers: {
                 'Content-Type': `${config.CONTENT_TYPES.APPLICATION_JSON}`
             },

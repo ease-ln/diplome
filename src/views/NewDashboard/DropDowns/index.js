@@ -36,7 +36,8 @@ export const ChooseComponent = ({ setSQProject, SQProject, projectID }) => {
 
   const getProjestIDS = async (projectID) => {
     let data = await fetchAgentsList(projectID);
-    if (data.agentList[4].isconnected === "Y") {
+
+    if (data && data.agentList[4] && data.agentList[4].isconnected === "Y") {
       let list = await fetchSQProjectList(projectID);
       let newArr = [];
       for (let el of list.projectList) {

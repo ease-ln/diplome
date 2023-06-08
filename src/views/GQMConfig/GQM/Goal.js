@@ -33,7 +33,7 @@ class Goal extends React.Component {
     getGoalData = async (token, userId) => {
         await getGoal(token, userId)
             .then(data => {
-                if (data.length !== 0) {
+                if (data && data.length !== 0) {
                     this.setState({ goal: data[0].content })
                     this.setState({ goalId: data[0].id })
                     this.props.setGoalId(data[0].id)

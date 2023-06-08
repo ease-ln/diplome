@@ -4,7 +4,7 @@ export const config = {
   // URL: "http://84.201.133.60",
 
   PORT_NUMBER: "9091",
-  OAUTH_PORT: "9094",
+  OAUTH_PORT: "9099",
   API: {
     VERSION: "V1",
     LOGIN: "login",
@@ -45,7 +45,7 @@ export const config = {
   },
 
   GQM: {
-    URL: "http://localhost",
+    URL:  "http://84.201.135.131",
     PORT: "8000",
     API: "api",
     REGISTER: "register",

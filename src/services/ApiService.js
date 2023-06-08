@@ -54,6 +54,7 @@ export const authPUT = (url, content_type, data, authToken) =>
   apiCall("PUT", url, content_type, data, authHeader(authToken)).then(_ =>
     _.json()
   );
+  
 export const authDELETE = (url, content_type, authToken) =>
   apiCall("DELETE", url, content_type, false, authHeader(authToken)).then(_ =>
     _.json()

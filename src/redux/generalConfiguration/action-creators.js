@@ -30,197 +30,223 @@ import {
 
 
 export const actionCreator = {
-  fetchProjects: (token) => (dispatch) => {
-    return fetchProjects(token)
-      .then((response) => {
-        dispatch(actions.fetchProjects(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchProjects: (token) => async (dispatch) => {
+    try {
+      const response = await fetchProjects(token);
+      dispatch(actions.fetchProjects(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  fetchCompanies: (token) => (dispatch) => {
-    return fetchCompanies(token)
-      .then((response) => {
-        dispatch(actions.fetchCompanies(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchCompanies: (token) => async (dispatch) => {
+    try {
+      const response = await fetchCompanies(token);
+      dispatch(actions.fetchCompanies(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  fetchTeams: (token, id) => (dispatch) => {
-    return fetchTeams(token, id)
-      .then((response) => {
-        dispatch(actions.fetchTeams(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchTeams: (token, id) => async (dispatch) => {
+    try {
+      const response = await fetchTeams(token, id);
+      dispatch(actions.fetchTeams(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  fetchMembers: (token, id) => (dispatch) => {
-    return fetchMembers(token, id)
-      .then((response) => {
-        dispatch(actions.fetchMembers(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchMembers: (token, id) => async (dispatch) => {
+    try {
+      const response = await fetchMembers(token, id);
+      dispatch(actions.fetchMembers(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  fetchAgentsxCompanies: (token, id) => (dispatch) => {
-    return fetchAgentsxCompanies(token, id)
-      .then((response) => {
-        dispatch(actions.fetchAgentsxCompanies(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchAgentsxCompanies: (token, id) => async (dispatch) => {
+    try {
+      const response = await fetchAgentsxCompanies(token, id);
+      dispatch(actions.fetchAgentsxCompanies(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  fetchExtProjxTeams: (token, id) => (dispatch) => {
-    return fetchExtProjxTeams(token, id)
-      .then((response) => {
-        dispatch(actions.fetchExtProjxTeams(response));
-        return response;
-      })
-      .catch((err) => false);
+  fetchExtProjxTeams: (token, id) => async (dispatch) => {
+    try {
+      const response = await fetchExtProjxTeams(token, id);
+      dispatch(actions.fetchExtProjxTeams(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  getMember: (token, id) => (dispatch) => {
-    return getMember(token, id)
-      .then((response) => {
-        dispatch(actions.getMember(response));
-        return response;
-      })
-      .catch((err) => false);
+  getMember: (token, id) => async (dispatch) => {
+    try {
+      const response = await getMember(token, id);
+      dispatch(actions.getMember(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  postMember: (token, payload) => () => {
-    return postMember(token, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  postMember: (token, payload) => async () => {
+    try {
+      const response = await postMember(token, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  putMember: (token, id, payload) => () => {
-    return putMember(token, id, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  putMember: (token, id, payload) => async () => {
+    try {
+      const response = await putMember(token, id, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  deleteMember: (token, id) => () => {
-    return deleteMember(token, id)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  deleteMember: (token, id) => async () => {
+    try {
+      const response = await deleteMember(token, id);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  getTeam: (token, id) => (dispatch) => {
-    return getTeam(token, id)
-      .then((response) => {
-        dispatch(actions.getTeam(response));
-        return response;
-      })
-      .catch((err) => false);
+  getTeam: (token, id) => async (dispatch) => {
+    try {
+      const response = await getTeam(token, id);
+      dispatch(actions.getTeam(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  postTeam: (token, payload) => () => {
-    return postTeam(token, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  postTeam: (token, payload) => async () => {
+    try {
+      const response = await postTeam(token, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  putTeam: (token, id, payload) => () => {
-    return putTeam(token, id, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  putTeam: (token, id, payload) => async () => {
+    try {
+      const response = await putTeam(token, id, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  deleteTeam: (token, id) => () => {
-    return deleteTeam(token, id)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  deleteTeam: (token, id) => async () => {
+    try {
+      const response = await deleteTeam(token, id);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  getExtProjxTeam: (token, id) => (dispatch) => {
-    return getExtProjxTeam(token, id)
-      .then((response) => {
-        dispatch(actions.getExtProjxTeams(response));
-        return response;
-      })
-      .catch((err) => false);
+  getExtProjxTeam: (token, id) => async (dispatch) => {
+    try {
+      const response = await getExtProjxTeam(token, id);
+      dispatch(actions.getExtProjxTeams(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  postExtProjxTeam: (token, payload) => () => {
-    return postExtProjxTeam(token, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  postExtProjxTeam: (token, payload) => async () => {
+    try {
+      const response = await postExtProjxTeam(token, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  putExtProjxTeam: (token, id, payload) => () => {
-    return putExtProjxTeam(token, id, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  putExtProjxTeam: (token, id, payload) => async () => {
+    try {
+      const response = await putExtProjxTeam(token, id, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  deleteExtProjxTeam: (token, id) => () => {
-    return deleteExtProjxTeam(token, id)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  deleteExtProjxTeam: (token, id) => async () => {
+    try {
+      const response = await deleteExtProjxTeam(token, id);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  getCompany: (token, id) => (dispatch) => {
-    return getCompany(token, id)
-      .then((response) => {
-        dispatch(actions.getCompany(response));
-        return response;
-      })
-      .catch((err) => false);
+  getCompany: (token, id) => async (dispatch) => {
+    try {
+      const response = await getCompany(token, id);
+      dispatch(actions.getCompany(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  postCompany: (token, payload) => () => {
-    return postCompany(token, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  postCompany: (token, payload) => async () => {
+    try {
+      const response = await postCompany(token, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  putCompany: (token, id, payload) => () => {
-    return putCompany(token, id, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  putCompany: (token, id, payload) => async () => {
+    try {
+      const response = await putCompany(token, id, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  deleteCompany: (token, id) => () => {
-    return deleteCompany(token, id)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  deleteCompany: (token, id) => async () => {
+    try {
+      const response = await deleteCompany(token, id);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  getAgxComp: (token, id) => (dispatch) => {
-    return getAgxComp(token, id)
-      .then((response) => {
-        dispatch(actions.getAgentsxCompanies(response));
-        return response;
-      })
-      .catch((err) => false);
+  getAgxComp: (token, id) => async (dispatch) => {
+    try {
+      const response = await getAgxComp(token, id);
+      dispatch(actions.getAgentsxCompanies(response));
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  postAgxComp: (token, payload) => () => {
-    return postAgxComp(token, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  postAgxComp: (token, payload) => async () => {
+    try {
+      const response = await postAgxComp(token, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  putAgxComp: (token, id, payload) => () => {
-    return putAgxComp(token, id, payload)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  putAgxComp: (token, id, payload) => async () => {
+    try {
+      const response = await putAgxComp(token, id, payload);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
-  deleteAgxComp: (token, id) => () => {
-    return deleteAgxComp(token, id)
-      .then((response) => {
-        return response;
-      })
-      .catch((err) => false);
+  deleteAgxComp: (token, id) => async () => {
+    try {
+      const response = await deleteAgxComp(token, id);
+      return response;
+    } catch (err) {
+      return false;
+    }
   },
 };

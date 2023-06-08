@@ -20,6 +20,9 @@ const AgentsxCompaniesRoute = (id) =>
 const CompanyByIdRoute = (id) =>
   `${config.URL}:${config.PORT_NUMBER}/${config.API.AUTH_REST}/${config.API.COMPANY}?id=${id}`
 
+const CompanyUpdateById= (id) =>
+  `${config.URL}:${config.PORT_NUMBER}/${config.API.AUTH_REST}/${config.API.COMPANY}/${id}`
+
 const CompanyRoute = () =>
   `${config.URL}:${config.PORT_NUMBER}/${config.API.AUTH_REST}/${config.API.COMPANY}`
 
@@ -128,7 +131,7 @@ export const postCompany = (token, payload) => {
 }
 export const putCompany = (token, id, payload) => {
   return authPUT(
-    CompanyByIdRoute(id),
+    CompanyUpdateById(id),
     config.CONTENT_TYPES.APPLICATION_JSON,
     payload,
     token

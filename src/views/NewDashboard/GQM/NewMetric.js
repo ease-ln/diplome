@@ -39,10 +39,10 @@ export default function NewMetric({
   const [data, setData] = useState();
   const [options, setOptions] = useState([]);
 
-  //funct for emails in userSelect
+  // funct for emails in userSelect
   const fetchUsers = useCallback(
-    (projectId=1) => {
-      const url = `${config.URL}:${config.PORT_NUMBER}/V1/Admin/Users?ProjectId=${projectId}`;
+    (projectId) => {
+      const url = `${config.URL}:${config.PORT_NUMBER}/${config.API.AUTH_REST}/${config.API.USERS}?ProjectId=${projectId}`;
       const token = localStorage.getItem('mr-token');
       const headers = { Token: token, Accept: "application/json" };
       return fetch(url, {
@@ -56,7 +56,7 @@ export default function NewMetric({
   //fetch emails for userSelect
   useEffect(() => {
     if (!userSelect) return;
-    fetchUsers(1)
+    fetchUsers(projectID)
       .then((res) => {
         if (!res || !res.userList || res.userList === 0) return;
         const t = res.userList.map((item) => item.email);

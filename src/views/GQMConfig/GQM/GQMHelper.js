@@ -62,7 +62,7 @@ export const getQuestionById = async (id) => {
 
 export const assignMetricsToQuestion = async (listOfMetrics, questionId) => {
     let body = {
-        "metricIds": listOfMetrics.map(el => { return Number(el.id) })
+        "mame":  listOfMetrics.map(el => { return String(el.content) })
     }
     await GQMConfigService.assignMetricsToQuestion(questionId, body)
 }
