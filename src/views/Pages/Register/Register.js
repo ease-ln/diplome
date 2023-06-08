@@ -33,12 +33,12 @@ function Register(props) {
     fields: "",
     auth: "",
   });
-  const [token, setToken] = useCookies(['mr-token']);
+  const [, setToken] = useCookies(['mr-token']);
 
   const handleChange = () => {
   }
 
-  const handleFocus = (e, inputType) => {
+  const handleFocus = (_, inputType) => {
     let err = error;
     err[inputType] = "";
     setError(err);
@@ -105,6 +105,10 @@ function Register(props) {
     registerFlow(firstName, surname, email, password)
     .then((res) => {
         saveUser(email, password).then((resp) => {
+          if (!resp || !resp.ok) {
+            setError({auth: "User does not added to GQM model"})
+            return;
+          }
           setToken('mr-token', resp.token)
         })
         props.history.push("/dashboard")

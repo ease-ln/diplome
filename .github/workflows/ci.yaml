@@ -1,10 +1,11 @@
 name: Yarn package
 
-env:
-  IMAGE: easeln/innometrics:${{ github.sha }}
-  DOKKU_APP_URL: 'ssh://dokku@51.250.3.9/diplome'
-
-on: push
+on: 
+  push:
+    branches:
+      - newDev
+  repository_dispatch:
+    type: common-trigger
 
 jobs:
   yarn_build:
@@ -19,7 +20,7 @@ jobs:
       - name: Set up Node 10.x ${{ matrix.os }}
         uses: actions/setup-node@v3
         with:
-          node-version: 10.24.1
+          node-version: 10.x
           cache: npm
       - name: clean cache
         run: yarn cache clean
@@ -32,7 +33,6 @@ jobs:
         continue-on-error: true
 
   production:
-      # needs: [ "yarn_build" ]
       name: Push Docker image to Docker Hub
       runs-on: ${{ matrix.os }}
       strategy:

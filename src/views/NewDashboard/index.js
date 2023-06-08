@@ -37,7 +37,7 @@ const Dashboard = () => {
   const [GQMConfigCards, setGQMConfigCards] = useState();
   useLayoutEffect(() => {
     if (email) {
-      getGoal(email)
+      getGoal(localStorage.getItem('mr-token'), localStorage.getItem('user_id'))
         .then((res) => {
           if (res && res.length !== 0) {
             setGoal(res[0].content);

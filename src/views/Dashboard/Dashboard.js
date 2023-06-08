@@ -64,7 +64,6 @@ class Dashboard extends Component {
 
   today = new Date()
 
-
   componentDidMount() {
     this.projectMapPropsToState()
   }
@@ -87,9 +86,9 @@ class Dashboard extends Component {
   }
 
   getGoalData = async () => {
-    await getGoal(this.state.token, localStorage.getItem('user_id'))
-      .then(data => {
-        if (data.length !== 0) {
+    await getGoal(localStorage.getItem('mr-token'), localStorage.getItem('user_id'))
+        .then(data => {
+        if (data && data.length !== 0) {
           this.setState({
             goal: {
               content: data[0].content,

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import cookie from "react-cookie";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
 
@@ -90,7 +89,6 @@ class Login extends Component {
   render() {
     return (
       <div className="app flex-row align-items-center">
-        <span>{'проверка'}</span>
         <Container>
           <Row className="justify-content-center">
             <Col md="8">

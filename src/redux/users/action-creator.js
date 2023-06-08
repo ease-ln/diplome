@@ -13,6 +13,6 @@ export const actionCreator = {
           throw new Error("No userList key found in response");
         }
       })
-      .catch((error) => false);
+      .catch((_) => false);
   },
 };

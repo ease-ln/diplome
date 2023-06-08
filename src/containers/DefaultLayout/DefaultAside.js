@@ -32,7 +32,7 @@ class DefaultAside extends Component {
   render() {
 
     // eslint-disable-next-line
-    // const { children, ...attributes } = this.props;
+    const { children, ...attributes } = this.props;
 
     return (
       <React.Fragment>

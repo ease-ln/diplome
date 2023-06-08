@@ -42,7 +42,7 @@ class Menu extends Component {
     if (agents.length === 0) {
       return (
         <div className="animated fadeIn">
-          <h3 style={{ marginBottom: "20px" }}>There is no agents yet</h3>
+          <h3 style={{ marginBottom: "20px" }}>There are no agents yet</h3>
           <Button color="primary" onClick={this.createNewAgent}>Create new agent</Button>
         </div>
     )} 
