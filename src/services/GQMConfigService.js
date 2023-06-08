@@ -118,7 +118,7 @@ export class GQMConfigService {
 
     static assignMetricsToQuestion(questionId, body) {
         return fetch(`${config.GQM.URL}:${config.GQM.PORT}/${config.GQM.API}/${config.GQM.QUESTIONS}/${questionId}/${config.GQM.ASSIGN_METRICS}`, {
-            method: `${config.REQ_TYPES.PUT}`,
+            method: 'PATCH', //`${config.REQ_TYPES.POST}`,
             headers: {
                 'Content-Type': `${config.CONTENT_TYPES.APPLICATION_JSON}`
             },

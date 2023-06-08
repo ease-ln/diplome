@@ -228,7 +228,7 @@ export const deleteResponse = (token, id) => {
 
 export const fetchAgentsList = (token, projectId) => {
   return authGET(
-    `https://innometric.guru:9094/AgentAdmin/Agent?ProjectId=${projectId}`,
+    `${config.URL}:${config.OAUTH_PORT}/${config.API.AGENT_ADMIN}/${config.API.AGENT}?ProjectId=${projectId}`,
     config.CONTENT_TYPES.APPLICATION_JSON,
     token,
   )
@@ -236,7 +236,7 @@ export const fetchAgentsList = (token, projectId) => {
 
 export const fetchSQProjectList = (token, projectId) => {
   return authGET(
-    `https://innometric.guru:9094/AgentGateway/projectList?AgentID=5&ProjectId=${projectId}`,
+    `https://innometric.guru:9090/AgentGateway/projectList?AgentID=5&ProjectId=${projectId}`,
     config.CONTENT_TYPES.APPLICATION_JSON,
     token,
   )
