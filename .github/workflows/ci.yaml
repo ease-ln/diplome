@@ -3,7 +3,7 @@ name: Yarn package
 on: 
   push:
     branches:
-      - newDev
+      - main
   repository_dispatch:
     type: common-trigger
 
