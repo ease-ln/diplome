@@ -3,7 +3,7 @@ EXPOSE 3000
 WORKDIR /app
 ADD . .
 RUN npm install
-RUN yarn build
+RUN npm run build
 
 # Bundle static assets with nginx
 FROM nginx:1.21.0-alpine as production
