@@ -1,6 +1,6 @@
 FROM node:12-alpine
 EXPOSE 3000
-WORKDIR opt/app
+WORKDIR /
 ADD . .
-RUN yarn install --frozen-lockfile
+RUN yarn install
 CMD ["yarn", "start"]
