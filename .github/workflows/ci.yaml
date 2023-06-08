@@ -1,5 +1,9 @@
 name: Yarn package
 
+env:
+  IMAGE: easeln/innometrics:${{ github.sha }}
+  DOKKU_APP_URL: 'ssh://dokku@51.250.3.9/diplome'
+
 on: 
   push:
     branches:
@@ -49,7 +53,6 @@ jobs:
             key: ${{ runner.os }}-buildx-${{ github.sha }}
             restore-keys: |
               ${{ runner.os }}-buildx-
-
         - uses: docker-practice/actions-setup-docker@master
           with:
             docker_version: 20.10
