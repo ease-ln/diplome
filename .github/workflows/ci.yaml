@@ -24,7 +24,7 @@ jobs:
       - name: Set up Node 10.x ${{ matrix.os }}
         uses: actions/setup-node@v3
         with:
-          node-version: 10.x
+          node-version: 12.22.10
           cache: npm
       - name: clean cache
         run: yarn cache clean
