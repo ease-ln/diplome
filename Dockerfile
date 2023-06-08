@@ -1,6 +1,6 @@
-FROM node:13-alpine
+FROM node:12-alpine
 EXPOSE 3000
 WORKDIR opt/app
-RUN npm install
 ADD . .
+RUN yarn install --frozen-lockfile
 CMD ["yarn", "start"]
