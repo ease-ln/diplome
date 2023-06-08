@@ -1,6 +1,6 @@
-FROM node:10-alpine
+FROM node:12-alpine
 EXPOSE 3000
-WORKDIR /app
+WORKDIR opt/app
+RUN npm install
 ADD . .
-RUN yarn install
 CMD ["yarn", "start"]
