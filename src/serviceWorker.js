@@ -112,10 +112,18 @@ function checkValidServiceWorker(swUrl, config) {
               'error handler'
             );
           });
+        }).catch(error => {
+          console.error('An error occurred:', error);
         });
       } else {
         // Service worker found. Proceed as normal.
-        registerValidSW(swUrl, config);
+        (async function ValidSW() {
+          try {
+            await registerValidSW(swUrl, config);
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+        })();
       }
     })
     .catch(() => {

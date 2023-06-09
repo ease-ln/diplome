@@ -58,7 +58,13 @@ export const ChooseComponent = ({ setSQProject, SQProject, projectID }) => {
   };
   useEffect(() => {
     if (typeof projectID !== "number") return;
-    getProjestIDS(projectID);
+    (async function someFunction() {
+      try {
+        await getProjestIDS(projectID);
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    })();
   }, []);
   return (
     <>
