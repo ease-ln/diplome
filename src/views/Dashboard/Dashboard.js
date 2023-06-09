@@ -79,7 +79,7 @@ class Dashboard extends Component {
       this.props.projects.length > 0 &&
       !this.state.projectSelected.projectID
     ) {
-      var projectId = this.props.projects[0];
+      let projectId = this.props.projects[0];
       (async function someFunction() {
         try {
           await this.setProject(projectId);

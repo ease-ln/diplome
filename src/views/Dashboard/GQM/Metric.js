@@ -75,7 +75,7 @@ export default function Metric({
   }
 
   useEffect(() => {
-    let isMounted = true
+    let isMounted = true;
     (async function exec() {
       if (isMounted) setIsChartLoading(true)
       try {

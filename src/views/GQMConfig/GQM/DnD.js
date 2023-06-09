@@ -38,12 +38,11 @@ class DnD extends React.Component {
     }
 
     loadData() {
-        var promise = new Promise((resolve, reject) => { 
+        const promise = new Promise((resolve, reject) => { 
             this.getQuestionsData();
         });
         return promise
       }
-     
     
     async componentDidMount(){
     this.loadData().catch(error => {

@@ -1,4 +1,4 @@
-import React, { Component, useEffect } from 'react'
+import React, { Component } from 'react'
 import {
   Card,
   Badge,
@@ -27,7 +27,7 @@ class MenuCompany extends Component {
   }
 
   loadData(token) {
-    var promise = new Promise((resolve, reject) => { 
+    let promise = new Promise((resolve, reject) => { 
       actionCreator.fetchCompanies(token)(this.props.dispatch);
     });
     return promise
