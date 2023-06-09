@@ -17,72 +17,32 @@ const initState = fromJS({
 export const reducer = (state = initState, action) => {
   switch (action.type) {
     case _.PROJECTS:
-      if (action.payload.projectList) {
-        return state.set("projects", action.payload.projectList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "projects", action.payload.projectList);
     case _.COMPANIES:
-      if (action.payload.companyRequestList) {
-        return state.set("companies", action.payload.companyRequestList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "companies", action.payload.companyRequestList);
     case _.TEAMS:
-      if (action.payload.teamRequestList) {
-        return state.set("teams", action.payload.teamRequestList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "teams", action.payload.teamRequestList);
     case _.AGENTSXCOMPANIES:
-      if (action.payload.agentsCompanyList) {
-        return state.set("agentsxcompanies", action.payload.agentsCompanyList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "agentsxcompanies", action.payload.agentsCompanyList);
     case _.EXTPROJXTEAMS:
-      if (action.payload.externalProjectTeamList) {
-        return state.set("extprojxteams", action.payload.externalProjectTeamList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "extprojxteams", action.payload.externalProjectTeamList);
     case _.MEMBERS:
-      if (action.payload.teammembersRequestList) {
-        return state.set("members", action.payload.teammembersRequestList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "members", action.payload.teammembersRequestList);
     case _.GET_COMPANY:
-      if (action.payload) {
-        return state.set("company", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "company", action.payload);
     case _.GET_TEAM:
-      if (action.payload.teamRequestList[0]) {
-        return state.set("team", action.payload.teamRequestList[0]);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "team", action.payload.teamRequestList[0]);
     case _.GET_MEMBER:
-      if (action.payload.teammembersRequestList[0]) {
-        return state.set("member", action.payload.teammembersRequestList[0]);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "member", action.payload.teammembersRequestList[0]);
     case _.GET_AGENTSXCOMPANIES:
-      if (action.payload) {
-        return state.set("agentsxcompany", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "agentsxcompany", action.payload);
     case _.GET_EXTPROJXTEAMS:
-      if (action.payload) {
-        return state.set("extprojxteam", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "extprojxteam", action.payload);
     default:
       return state;
   }
 };
+
+const setIfPayloadExists = (state, key, value) =>
+  value ? state.set(key, value) : state;
+
