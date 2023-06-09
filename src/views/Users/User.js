@@ -16,7 +16,25 @@ import { fromJS } from 'immutable'
 import { changePasswordFlow, postDataFlow } from '../../redux/common/flows'
 
 
+
 function User(props) {
+  function getInfo() {
+    try {
+      const userList = props.users.map((u, i) => ({...u, id: i}))
+      const myEmail = localStorage.getItem('email')
+      const isMyProfilePage =
+        props.location.pathname.split('/').join('').trim() === 'me'
+  
+      const user = isMyProfilePage
+        ? userList.find((user) => user.email === myEmail)
+        : userList.find((user) => user.id.toString() === props.match.params.id)
+  
+      return user;
+    } catch(_) {
+      return null;
+    }
+  }
+  
   const [userData, setUserData] = useState(getInfo());
   const [password, setPassword] = useState("");
   const [error, setError]= useState("");
@@ -61,24 +79,6 @@ function User(props) {
     });
   }
   
-
-  function getInfo() {
-    try {
-      const userList = props.users.map((u, i) => ({...u, id: i}))
-      const myEmail = localStorage.getItem('email')
-      const isMyProfilePage =
-        props.location.pathname.split('/').join('').trim() === 'me'
-
-      const user = isMyProfilePage
-        ? userList.find((user) => user.email === myEmail)
-        : userList.find((user) => user.id.toString() === props.match.params.id)
-
-      return user;
-    } catch(_) {
-      return null;
-    }
-  }
-
   if (userData === null){
     return (
       <h2>Cannot find user page...</h2>
@@ -246,8 +246,7 @@ function User(props) {
     </div>
   )
 }
-
-
+}
 export default withRouter(
   connect((state) => ({
     users: fromJS(state.users.get('users')).toJS(),
