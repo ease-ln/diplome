@@ -62,9 +62,9 @@ class Popovers extends Component {
   }
 
   toggle() {
-    this.setState({
-      popoverOpen: !this.state.popoverOpen,
-    });
+    this.setState(prevState => ({
+      popoverOpen: !prevState.popoverOpen,
+    }));
   }
 
   render() {
@@ -96,7 +96,7 @@ class Popovers extends Component {
           </CardHeader>
           <CardBody>
             {this.state.popovers.map((popover, i) => {
-              return <PopoverItem key={i} item={popover} id={i} />;
+              return <PopoverItem key={`${popover.text}`} item={popover} id={i} />;
             })}
           </CardBody>
         </Card>

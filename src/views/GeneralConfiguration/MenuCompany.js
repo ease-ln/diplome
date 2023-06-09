@@ -25,9 +25,20 @@ class MenuCompany extends Component {
     this.props.history.push(this.props.history.location.pathname + '/' + id)
   }
 
-  componentDidMount(){
+  loadData(token) {
+    let promise = new Promise(() => { 
+      actionCreator.fetchCompanies(token)(this.props.dispatch).catch(error => {
+        console.error('An error occurred:', error)});
+    });
+    return promise
+  }
+ 
+
+  async componentDidMount(){
     const token = getData(localStorageKey).token;
-    actionCreator.fetchCompanies(token)(this.props.dispatch)
+    this.loadData(token).catch(error => {
+      console.error('An error occurred:', error);
+    });
   }
 
   badge = (status) => {

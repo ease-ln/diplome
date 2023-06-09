@@ -16,7 +16,7 @@ import {
 
 import DatePicker from 'react-datepicker'
 
-import CustomInput from '../Dashboard/CustomInput'
+import CustomInput from '../NewDashboard/Helpers/CustomInput'
 
 import {
   fetchIndividualActivities,

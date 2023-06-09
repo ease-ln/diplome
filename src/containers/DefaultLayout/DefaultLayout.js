@@ -30,8 +30,9 @@ const DefaultFooter = React.lazy(() => import('./DefaultFooter'))
 const DefaultHeader = React.lazy(() => import('./DefaultHeader'))
 
 const objectWithoutKey = (object, key) => {
-  const {[key]: _, ...otherKeys} = object
-  return otherKeys
+  const tempObj = object;
+  tempObj.key && delete tempObj[key];
+  return tempObj;
 }
 
 const restricted = (nav, allowedRoutes) => {
