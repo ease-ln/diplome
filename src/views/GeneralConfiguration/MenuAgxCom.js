@@ -2,11 +2,8 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button, Badge
+  Button, 
+  Badge
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -15,6 +12,8 @@ import {fromJS} from 'immutable'
 import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator} from "../../redux/generalConfiguration/action-creators";
 import {actionCreator as agent_actions} from "../../redux/agents/action-creators";
+
+import "../../scss/styles.css";
 
 class MenuAgxCom extends Component {
   state = {
@@ -54,38 +53,32 @@ class MenuAgxCom extends Component {
     const company = this.props.company
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                List of Agents x Companies of company [{company.companyname}]
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>Config id</strong></td>
-                    <td><strong>Agent Name</strong></td>
-                    <td><strong>Key</strong></td>
-                    <td><strong>Is Active</strong></td>
-                  </tr>
-                  {agxComs.map((value, idx) => {
-                    return (
-                      <tr key={idx} onClick={()=>{this.goToAgentxCompany(value.configid)}}>
-                        <td>{value.configid}</td>
-                        <td>{agents[idx]}</td>
-                        <td>{value.key}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-                <Button color="primary" onClick={this.createNewAgentxCompany}>Create New Agent x Company</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Integrations of company {company.companyname}</h3>
+          <CardBody className="card-grid">
+            {agxComs.map((value, idx) => {
+              return (
+                <Card key={idx} onClick={ () => {this.goToAgentxCompany(value.configid)} } style={{ padding: "10px", margin: "10px" }}>
+                  <div>{this.badge(value.isactive)}</div>
+                  <Badge color="secondary">Configuration id: {value.configid}</Badge>
+                  <i className="icon-arrow-right icons position-right"></i>
+                  <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{agents[idx]}</div>
+                  {value.key && (<p style={{ color: "#73818F" }}>{value.key}</p>)}
+                  {!value.key && (<p style={{ color: "#73818F" }}>No keys</p>)}
+                </Card>
+              )
+            })}
+          </CardBody>
+          <Button 
+            color="primary" 
+            className="save" 
+            style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+            onClick={this.createNewAgentxCompany}
+          >
+            <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+            Create new integration
+          </Button>
+        </Card>
       </div>
     )
   }

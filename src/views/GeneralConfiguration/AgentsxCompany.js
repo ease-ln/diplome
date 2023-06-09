@@ -2,10 +2,7 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
+  Container,
   Button,
   Input,
   CustomInput
@@ -17,6 +14,8 @@ import {fromJS} from 'immutable'
 import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator as agent_actions} from "../../redux/agents/action-creators"
 import {actionCreator} from "../../redux/generalConfiguration/action-creators";
+
+import "../../scss/styles.css";
 
 class AgentsxCompany extends Component {
   state = {agentid: ''}
@@ -89,155 +88,117 @@ class AgentsxCompany extends Component {
   }
   render() {
     const {isactive, configid, companyid, creationdate, agentid, createdby, updateby, lastupdate, ...agentStateData} = this.state
-    const agents = this.props.agents
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Change Agent x Company's config info
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td>
-                      Config id
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="configid"
-                        disabled
-                        value={configid}
-                        onChange={this.handleChange("configid")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Company id
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="companyid"
-                        disabled
-                        value={companyid}
-                        onChange={this.handleChange("companyid")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Agent Name</td>
-                    <td>
-                      <Input type="select" name="select" value={agentid} onChange={this.handleSelect}>
-                        {agents.map((agent)=>(
-                          <option value={agent.agentid}>{agent.agentname}</option>
-                        ))}
-                      </Input>
-                    </td>
-                  </tr>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      Creation Date
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="creationdate"
-                        disabled
-                        value={creationdate===null ? "" : new Date(creationdate).toDateString()}
-                        onChange={this.handleChange("creationdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Created By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="createdby"
-                        disabled
-                        value={createdby===null ? "" : createdby}
-                        onChange={this.handleChange("createdby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Last Update
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="lastupdate"
-                        disabled
-                        value={lastupdate===null ? "" : new Date(lastupdate).toDateString()}
-                        onChange={this.handleChange("lastupdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Updated By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="updateby"
-                        disabled
-                        value={updateby===null ? "" : updateby}
-                        onChange={this.handleChange("updateby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Is Active
-                    </td>
-                    <td>
-                      <CustomInput
-                        id="isactive"
-                        type="switch"
-                        name="isactive"
-                        checked={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.save}>
-                    Save
-                  </Button>
-                  <Button color="danger" onClick={this.remove}>
-                    Delete
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>About configuration</h3>
+          <CardBody>
+            <div style={{ display: "flex", flexDirection: "column", marginLeft: "0px" }}>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Configuration id</p>
+                  <p>{configid}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Company id</p>
+                  <p>{companyid}</p>
+                </Container>
+              </div>
+              <div className='row-info'>
+              <Container className='info'>
+                  <p className='header-small'>Creation date</p>
+                  <p>{new Date(creationdate).toDateString()}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Created by</p>
+                  <p>{createdby}</p>
+                </Container>
+              </div>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Last updated by</p>
+                  {lastupdate && (<p>{new Date(lastupdate).toDateString()}</p>)}
+                  {!lastupdate && (<p>None</p>)}
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Updated by</p>
+                  {updateby && (<p>{updateby}</p>)}
+                  {!updateby && (<p>None</p>)}
+                </Container>
+              </div>
+            </div>
+            <hr/>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Agent name:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="agentname"
+                  value={agentStateData.agentname}
+                  onChange={this.handleChange("agentname")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Token:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="token"
+                  value={agentStateData.token}
+                  onChange={this.handleChange("token")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Key:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="key"
+                  value={agentStateData.key}
+                  onChange={this.handleChange("key")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Configuration is active:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isactive"
+                    type="switch"
+                    name="isactive"
+                    checked={isactive}
+                    onChange={this.handleCheck}
+                  />
+              </Container>
+            </div>
+            <hr/>
+            <div style={{ width: "770px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", marginTop: "20px" }}>
+                <Button color="danger" style={{ width: "fit-content" }} onClick={this.remove}>
+                  Delete configuration
+                </Button>
+                <Button color="primary" style={{ marginLeft: "15px" }} onClick={this.save}>
+                  <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+                  Save changes
+                </Button>
+                </div>
+          </CardBody>
+        </Card>
       </div>
     )
   }

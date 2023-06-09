@@ -2,12 +2,10 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
   Button,
   Input,
+  Container,
+  CustomInput,
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -16,6 +14,8 @@ import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator as agent_actions} from "../../redux/agents/action-creators"
 import {actionCreator} from "../../redux/generalConfiguration/action-creators";
 import {fromJS} from "immutable";
+
+import "../../scss/styles.css";
 
 class CreateAgentsxCompany extends Component {
   state = {
@@ -30,11 +30,13 @@ class CreateAgentsxCompany extends Component {
     const key = k.toLowerCase()
     this.setState({[key]: e.target.value})
   }
+
   handleCheck = (e) => {
     const key = "isactive"
     this.setState({[key]: e.target.checked})
   }
-  Create = async () => {
+
+  submit = async () => {
     const id = this.props.match.params.id1
     const payload = {
       companyid: id,
@@ -43,6 +45,7 @@ class CreateAgentsxCompany extends Component {
       key: this.state.key,
       token: this.state.token,
     }
+
     for (const v in payload){
       if(v==="agentid")payload[v] = Number(payload[v])
       if(payload[v] === "")payload[v] = null
@@ -61,78 +64,89 @@ class CreateAgentsxCompany extends Component {
       this.props.history.push(`/company/${id}/agxcom`)
     }
   }
+
   async componentDidMount(){
     const token = getData(localStorageKey).token;
     await agent_actions.fetchAgents(token, 0)(this.props.dispatch)
     const agents = this.props.agents.sort((a,b)=>a.agentid - b.agentid)
     this.setState({agents})
   }
+
   handleSelect = (e) => {
     const key = "agentid"
     this.setState({[key]: e.target.value})
   }
+
   render() {
     const {isactive, agents, agentid, ...agentStateData} = this.state
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Create Agent x Company Config
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>Agent Name</td>
-                    <td>
-                      <Input type="select" name="select" value={agentid} onChange={this.handleSelect}>
-                        {agents.map((agent)=>(
-                          <option value={agent.agentid}>{agent.agentname}</option>
-                        ))}
-                      </Input>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      isActive
-                    </td>
-                    <td>
-                      <Input
-                        type="checkbox"
-                        name="isactive"
-                        value={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.Create}>
-                    Create
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Create configuration</h3>
+          <CardBody>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Agent name:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input type="select" name="select" value={agentid} onChange={this.handleSelect}>
+                  {agents.map((agent)=>(
+                    <option value={agent.agentid}>{agent.agentname}</option>
+                  ))}
+                </Input>
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Key:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="key"
+                  value={agentStateData.key}
+                  onChange={this.handleChange("key")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Token:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="ketokeny"
+                  value={agentStateData.ktokeney}
+                  onChange={this.handleChange("token")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Configuration is active:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isactive"
+                    type="switch"
+                    name="isactive"
+                    checked={isactive}
+                    onChange={this.handleCheck}
+                  />
+              </Container>
+            </div>
+            <hr/>
+            <Button color="primary" onClick={this.submit}>
+              <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+              Create configuration
+            </Button>
+          </CardBody>
+        </Card>
       </div>
     )
   }

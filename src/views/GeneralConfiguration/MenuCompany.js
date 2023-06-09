@@ -48,32 +48,32 @@ class MenuCompany extends Component {
     )} 
     else return (
       <div className="animated fadeIn">
-          <Card>
-          <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Companies</h3>
-            <CardBody className="card-grid">
-              {companies.map((value, idx) => {
-                return (
-                  <Card key={idx} onClick={ () => {this.goToCompany(value.companyid)} } style={{ padding: "10px", margin: "10px" }}>
-                    <div>{this.badge(value.isactive)}</div>
-                    <Badge color="secondary">Company id: {value.companyid}</Badge>
-                    <i className="icon-arrow-right icons position-right"></i>
-                    <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.companyname}</div>
-                    {value.updateby && (<p style={{ color: "#73818F" }}>Last updated by {value.updateby}</p>)}
-                    {!value.updateby && (<p style={{ color: "#73818F" }}>Has not been updated</p>)}
-                  </Card>
-                )
-              })}
-            </CardBody>
-            <Button 
-              color="primary" 
-              className="save" 
-              style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
-              onClick={this.createNewCompany}
-            >
-              <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
-              Create new company
-            </Button>
-          </Card>
+        <Card>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Companies</h3>
+          <CardBody className="card-grid">
+            {companies.map((value, idx) => {
+              return (
+                <Card key={idx} onClick={ () => {this.goToCompany(value.companyid)} } style={{ padding: "10px", margin: "10px" }}>
+                  <div>{this.badge(value.isactive)}</div>
+                  <Badge color="secondary">Company id: {value.companyid}</Badge>
+                  <i className="icon-arrow-right icons position-right"></i>
+                  <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.companyname}</div>
+                  {value.updateby && (<p style={{ color: "#73818F" }}>Last updated by {value.updateby}</p>)}
+                  {!value.updateby && (<p style={{ color: "#73818F" }}>Has not been updated</p>)}
+                </Card>
+              )
+            })}
+          </CardBody>
+          <Button 
+            color="primary" 
+            className="save" 
+            style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+            onClick={this.createNewCompany}
+          >
+            <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+            Create new company
+          </Button>
+        </Card>
       </div>
     )
   }

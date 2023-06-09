@@ -20,10 +20,10 @@ class ConfigMethods extends Component {
   state = {}
 
   handleChange = (key) => (e) => {
-    this.setState({[key]: e.target.value})
+    this.setState({ [key]: e.target.value })
   }
   handleCheck = (e) => {
-    this.setState({isactive: e.target.checked})
+    this.setState({ isactive: e.target.checked })
   }
   goToDetails = () => {
     this.props.history.push(this.props.history.location.pathname + '/details')
@@ -94,7 +94,7 @@ class ConfigMethods extends Component {
     return (
       <div className="animated fadeIn">
         <Card style={{ width: "100%", alignItems: "first baseline" }}>
-        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Config Method</h3>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>About method</h3>
           <CardBody>
             <div style={{ display: "flex", flexDirection: "column", marginLeft: "0px" }}>
               <div className='row-info'>
@@ -108,7 +108,7 @@ class ConfigMethods extends Component {
                 </Container>
               </div>
               <div className='row-info'>
-              <Container className='info'>
+                <Container className='info'>
                   <p className='header-small'>Creation date</p>
                   <p>{new Date(creationdate).toDateString()}</p>
                 </Container>
