@@ -121,9 +121,7 @@ export const logout = () => {
 }
 
 export const registerFlow = (firstName, surname, email, password) => {
-  return new Promise((resolve, _reject) => {
-      resolve(registerUser(firstName, surname, email, password))
-  })
+  return Promise.resolve(registerUser(firstName, surname, email, password));
 }
 
 export const postDataFlow = (data) => {
