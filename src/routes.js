@@ -24,7 +24,7 @@ const ButtonDropdowns = React.lazy(() =>
 const ButtonGroups = React.lazy(() => import('./views/Buttons/ButtonGroups'))
 const Buttons = React.lazy(() => import('./views/Buttons/Buttons'))
 const Charts = React.lazy(() => import('./views/Charts'))
-const Dashboard = React.lazy(() => import('./views/Dashboard'))
+// const Dashboard = React.lazy(() => import('./views/Dashboard'))
 const NewDashboard = React.lazy(() => import('./views/NewDashboard'))
 const Settings = React.lazy(() => import('./views/Settings'))
 const Control = React.lazy(() => import('./views/Control'))
@@ -75,7 +75,6 @@ const MenuExternalProjectxTeam = React.lazy(() => import('./views/GeneralConfigu
 
 const routes = [
   {path: '/', exact: true, name: 'Home'},
-  { path: '/olddashboard', name: 'Dashboard', component: Dashboard },
   {path: '/dashboard', name: 'Dashboard', component: NewDashboard},
   {path: '/settings', name: 'Settings', exact: true, component: Settings},
   {
