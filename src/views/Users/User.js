@@ -88,52 +88,6 @@ function User(props) {
   const isMyProfilePage =
     props.location.pathname.split('/').join('').trim() === 'me'
 
-  const style = (className) => {
-    if (className === "save"){
-      return {
-        position: "absolute",
-        top: "0px",
-        right: "0px",
-      }
-    }
-    if (className === "upload"){
-      return {
-        display: "flex", 
-        flexDirection: "row", 
-        alignItems: "center",
-        color: "#20A8D8",
-        backgroundColor: "#F7FAFC",
-        borderColor: "#20A8D8",
-      }
-    }
-    if (className === "h4"){
-      return {
-        paddingRight: "0px",
-        paddingLeft: "0px",
-        marginBottom: "20px",
-        color: "#73818F",
-      }
-    }
-    if (className === "flex-row"){
-      return {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingRight: "0px",
-        paddingLeft: "0px",
-        marginBottom: "20px",
-      }
-    } 
-    if (className === "input"){
-      return {
-        display: "inline-block", 
-        verticalAlign: "middle",
-        width: "280px",
-      }
-    }
-  }
-
   return (
     <div className="animated fadeIn" style={{ margin: "0 auto", position: "relative"}}>
       {error === "success" && (
@@ -149,77 +103,77 @@ function User(props) {
               alt="admin@bootstrapmaster.com"
               style={{ width: "106px", marginBottom: "20px" }}
             />
-            <Button color="primary" style={style("upload")} disabled>
+            <Button color="primary" className="upload" disabled>
               <i className="icon-cloud-upload icons font-2xl d-block" style={{ marginRight: "5px" }}></i>
               Upload new image
             </Button>
           </div>
           <hr/>
-          <h4 style={style("h4")}>Profile info</h4>
+          <h4 className="h4">Profile info</h4>
           {Object.entries(userData).map(([key, value]) => {
             if (key === "name") {
               return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>First name:</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={value}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
             } else if (key === "surname") {
               return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Last name:</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={value}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
             } else if (key === "email") {
               return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>E-mail:</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={value}
-                    style={style("input")}
                     readOnly
                   />
                 </Container>
               )
             } else if (key === "role") {
               return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Role:</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={value.toLowerCase()}
-                    style={style("input")}
                     readOnly
                   />
                 </Container>
               )
           }})}
           <hr/>
-          <h4 style={style("h4")}>Change password</h4>
-          <Container style={style("flex-row")}>
+          <h4 className="h4">Change password</h4>
+          <Container className="flex-row">
             <div>New password:</div>
             <Input
+              className="input"
               type="text"
               name="password"
               placeholder="Must include 8+ characters"
               value={password}
-              style={style("input")}
               onChange={handlePassword}
             />
           </Container>
@@ -233,8 +187,8 @@ function User(props) {
       {isMyProfilePage && (
         <>
           <Button 
-            color="primary" 
-            style={style("save")} 
+            className="save"
+            color="primary"
             onClick={submit} 
             disabled={!isModified || error === "short password"}
           >
