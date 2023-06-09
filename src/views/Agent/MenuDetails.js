@@ -2,11 +2,8 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button, Badge
+  Button, 
+  Badge
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -14,6 +11,8 @@ import {connect} from 'react-redux'
 import {fromJS} from 'immutable'
 import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator} from "../../redux/agents/action-creators";
+
+import "../../scss/styles.css";
 
 class MenuDetails extends Component {
   state = {details: []}
@@ -34,43 +33,48 @@ class MenuDetails extends Component {
     if(status === "Y")return(<Badge color="success">Active</Badge>);
     else return(<Badge color="danger">Not active</Badge>)
   }
+  
   render() {
     const details = this.props.details
-    details.sort((a,b)=>a.detailid - b.detailid)
+    details.sort((a, b) => a.detailid - b.detailid)
+
+    if (details.length === 0) {
+      return (
+        <div className="animated fadeIn">
+          <h3 style={{ marginBottom: "20px" }}>There are no details yet</h3>
+          <Button color="primary" onClick={this.createNewDetails}>Create new detail</Button>
+        </div>
+    )} 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                List of details of method with description: "{this.props.method.description}" from agent [{this.props.agent.agentname}]
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>detailId</strong></td>
-                    <td><strong>paramName</strong></td>
-                    <td><strong>requestParam</strong></td>
-                    <td><strong>isActive</strong></td>
-                  </tr>
-                  {details.map((value) => {
-                    return (
-                      <tr key={`${value.configDetId}`} onClick={()=>{this.goToDetails(value.configDetId)}}>
-                        <td>{value.configDetId}</td>
-                        <td>{value.paramname}</td>
-                        <td>{value.requestparam}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-				<Button color="primary" onClick={this.createNewDetails}>Create New Details</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>
+          Details of method "{this.props.method.description}" from {this.props.agent.agentname} agent
+        </h3>
+          <CardBody className="card-grid">
+            {details.map((value, idx) => {
+              return (
+                <Card key={idx} onClick={ () => {this.goToDetails(value.configDetId)} } style={{ padding: "10px", margin: "10px" }}>
+                  <div>{this.badge(value.isactive)}</div>
+                  <Badge color="secondary">Detail id: {value.configDetId}</Badge>
+                  <i className="icon-arrow-right icons position-right"></i>
+                  <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.paramname}</div>
+                  {value.responseparam && (<p style={{ color: "#73818F" }}>{value.responseparam}</p>)}
+                  {!value.responseparam && (<p style={{ color: "#73818F" }}>No parameters</p>)}
+                </Card>
+              )
+            })}
+          </CardBody>
+          <Button 
+            color="primary" 
+            className="save" 
+            style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+            onClick={this.createNewDetails}
+          >
+            <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+            Create new detail
+          </Button>
+        </Card>
       </div>
     )
   }

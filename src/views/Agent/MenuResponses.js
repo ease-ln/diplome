@@ -63,8 +63,8 @@ class MenuResponses extends Component {
                   <Badge color="secondary">Response id: {value.configresponseid}</Badge>
                   <i className="icon-arrow-right icons position-right"></i>
                   <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.paramname}</div>
-                  {value.description && (<p style={{ color: "#73818F" }}>{value.responseparam}</p>)}
-                  {!value.description && (<p style={{ color: "#73818F" }}>No parameters</p>)}
+                  {value.responseparam && (<p style={{ color: "#73818F" }}>{value.responseparam}</p>)}
+                  {!value.responseparam && (<p style={{ color: "#73818F" }}>No parameters</p>)}
                 </Card>
               )
             })}

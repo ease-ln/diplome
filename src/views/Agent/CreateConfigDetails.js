@@ -2,18 +2,18 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
+  Container,
   Button,
   Input,
+  CustomInput,
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
 import {connect} from 'react-redux'
 import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator} from "../../redux/agents/action-creators";
+
+import "../../scss/styles.css";
 
 class CreateConfigDetails extends Component {
   state = {
@@ -33,7 +33,7 @@ class CreateConfigDetails extends Component {
     const key = "isactive"
     this.setState({[key]: e.target.checked})
   }
-  Create = async () => {
+  submit = async () => {
     const id = this.props.match.params.id2
     const payload = {
       methodid: id,
@@ -58,58 +58,108 @@ class CreateConfigDetails extends Component {
     }
   }
   render() {
-    const {isactive, ...agentStateData} = this.state
+    const {isactive, ...detailStateData} = this.state
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Create Detail Config
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      isActive
-                    </td>
-                    <td>
-                      <Input
-                        id="isactive"
-                        type="switch"
-                        name="isactive"
-                        value={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.Create}>
-                    Create
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Create detail</h3>
+          <CardBody>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Parameter name:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="paramname"
+                  value={detailStateData.paramname}
+                  onChange={this.handleChange("paramname")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Parameter type:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="paramtype"
+                  value={detailStateData.paramtype}
+                  onChange={this.handleChange("paramtype")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Request parameter:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="requestparam"
+                  value={detailStateData.requestparam}
+                  onChange={this.handleChange("requestparam")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Request type:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="requesttype"
+                  value={detailStateData.requesttype}
+                  onChange={this.handleChange("requesttype")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Default value:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="defaultvalue"
+                  value={detailStateData.defaultvalue}
+                  onChange={this.handleChange("defaultvalue")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Detail is active:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isactive"
+                    type="switch"
+                    name="isactive"
+                    checked={isactive}
+                    onChange={this.handleCheck}
+                  />
+              </Container>
+            </div>
+            <hr/>
+            <Button color="primary" onClick={this.submit}>
+              <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+              Create detail
+            </Button>
+          </CardBody>
+        </Card>
       </div>
     )
   }
