@@ -38,11 +38,14 @@ export function register(config) {
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker/PWA documentation.
-        navigator.serviceWorker.ready.then(() => {
+        navigator.serviceWorker.ready
+        .then(() => {
           console.log(
             'This web app is being served cache-first by a service ' +
               'worker. To learn more, visit https://goo.gl/SC7cgQ'
-          );
+          );        })
+        .catch((error) => {
+          console.error("Error occurred while executing Promise:", error);
         });
       } else {
         // Is not local host. Just register service worker
@@ -126,6 +129,8 @@ export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
       registration.unregister();
+    }).catch(error => {
+      console.error('An error occurred:', error);
     });
   }
 }
