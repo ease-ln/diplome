@@ -55,7 +55,7 @@ class MenuMethods extends Component {
                   </tr>
                   {methods.map((value, idx) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToMethod(value.methodid)}}>
+                      <tr key={`${value.methodid}`} onClick={()=>{this.goToMethod(value.methodid)}}>
                         <td>{value.methodid}</td>
                         <td>{this.props.agent.agentname}</td>
                         <td>{value.description}</td>

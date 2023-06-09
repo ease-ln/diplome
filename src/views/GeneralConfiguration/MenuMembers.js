@@ -54,9 +54,9 @@ class MenuMembers extends Component {
                     <td><strong>Created By</strong></td>
                     <td><strong>IsActive</strong></td>
                   </tr>
-                  {members.map((value, idx) => {
+                  {members.map((value) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToMember(value.memberid)}}>
+                      <tr key={`${value.memberid}`} onClick={()=>{this.goToMember(value.memberid)}}>
                         <td>{value.memberid}</td>
                         <td>{value.email}</td>
                         <td>{value.createdby}</td>

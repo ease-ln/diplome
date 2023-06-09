@@ -53,9 +53,9 @@ class MenuTeams extends Component {
                     <td><strong>Description</strong></td>
                     <td><strong>Is Active</strong></td>
                   </tr>
-                  {teams.map((value, idx) => {
+                  {teams.map((value) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToTeam(value.teamid)}}>
+                      <tr key={`${value.teamid}`} onClick={()=>{this.goToTeam(value.teamid)}}>
                         <td>{value.teamid}</td>
                         <td>{value.teamname}</td>
                         <td>{value.description}</td>

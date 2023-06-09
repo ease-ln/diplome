@@ -6,14 +6,13 @@ const initState = fromJS({
 });
 
 export const reducer = (state = initState, action) => {
-  switch (action.type) {
-    case _.USERS:
-      if (action.payload.userList && action.payload.userList.length > 0) {
-        return state.set("users", action.payload.userList);
-      } else {
-        return initState;
-      }
-    default:
-      return state;
+  if (action.type === _.USERS) {
+    if (action.payload.userList && action.payload.userList.length > 0) {
+      return state.set("users", action.payload.userList);
+    } else {
+      return initState;
+    }
+  } else {
+    return state;
   }
 };
