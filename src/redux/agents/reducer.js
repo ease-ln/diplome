@@ -14,64 +14,34 @@ const initState = fromJS({
 });
 
 export const reducer = (state = initState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case _.AGENTS:
-      if (action.payload.agentList && action.payload.agentList.length > 0) {
-        return state.set("agents", action.payload.agentList);
-      } else {
-        return state;
-      }
+      return payload.agentList && payload.agentList.length > 0
+        ? state.set("agents", payload.agentList)
+        : state;
     case _.METHODS:
-      if (action.payload.methodsList) {
-        return state.set("methods", action.payload.methodsList);
-      } else {
-        return state;
-      }
+      return state.set("methods", payload.methodsList || state.get("methods"));
     case _.DETAILS:
-      if (action.payload.detailsList) {
-        return state.set("details", action.payload.detailsList);
-      } else {
-        return state;
-      }
+      return state.set("details", payload.detailsList || state.get("details"));
     case _.RESPONSES:
-      if (action.payload.responseList) {
-        return state.set("responses", action.payload.responseList);
-      } else {
-        return state;
-      }
+      return state.set("responses", payload.responseList || state.get("responses"));
     case _.PROJECT_LIST:
-      if (action.payload.projectList && action.payload.projectList.length > 0) {
-        return state.set("agentProjectList", {
-          [action.payload.agentId]: action.payload.projectList,
-        });
-      } else {
-        return state;
-      }
+      return payload.projectList && payload.projectList.length > 0
+        ? state.set("agentProjectList", {
+            [payload.agentId]: payload.projectList,
+          })
+        : state;
     case _.GET_AGENT:
-      if (action.payload) {
-        return state.set("agent", action.payload);
-      } else {
-        return state;
-      }
+      return payload ? state.set("agent", payload) : state;
     case _.GET_METHOD:
-      if (action.payload) {
-        return state.set("method", action.payload);
-      } else {
-        return state;
-      }
+      return payload ? state.set("method", payload) : state;
     case _.GET_RESPONSE:
-      if (action.payload) {
-        return state.set("response", action.payload);
-      } else {
-        return state;
-      }
+      return payload ? state.set("response", payload) : state;
     case _.GET_DETAIL:
-      if (action.payload) {
-        return state.set("detail", action.payload);
-      } else {
-        return state;
-      }
+      return payload ? state.set("detail", payload) : state;
     default:
       return state;
   }
 };
+
