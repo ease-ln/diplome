@@ -16,8 +16,6 @@ const defaultProps = {};
 
 class DefaultHeader extends Component {
   render() {
-    // const { children, ...attributes } = this.props;
-
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
