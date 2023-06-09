@@ -12,6 +12,8 @@ import { connect } from 'react-redux'
 import { actionCreator } from "../../redux/agents/action-creators";
 import { getData, localStorageKey } from "../../redux/utils";
 
+import "../../scss/styles.css";
+
 function CreateNewAgent(props) {
   const [agentData, setAgentData] = useState({
     agentname: '',
@@ -70,42 +72,6 @@ function CreateNewAgent(props) {
     }
   }
 
-  const style = (className) => {
-    if (className === "save"){
-      return {
-        position: "absolute",
-        top: "0px",
-        right: "0px",
-      }
-    }
-    if (className === "h4"){
-      return {
-        paddingRight: "0px",
-        paddingLeft: "0px",
-        marginBottom: "20px",
-        color: "#73818F",
-      }
-    }
-    if (className === "flex-row"){
-      return {
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingRight: "0px",
-        paddingLeft: "0px",
-        marginBottom: "20px",
-      }
-    } 
-    if (className === "input"){
-      return {
-        display: "inline-block", 
-        verticalAlign: "middle",
-        width: "280px",
-      }
-    }
-  }
-
   const {isconnected, ...agentStateData} = agentData;
   
   return (
@@ -113,156 +79,156 @@ function CreateNewAgent(props) {
       <h3 style={{ marginBottom: "20px" }}>Create new agent</h3>
       <Card style={{ margin: "0 auto", marginBottom: "40px", width: "482px", backgroundColor: "#F7FAFC" }}>
         <CardBody>
-          <h4 style={style("h4")}>Agent info</h4>
+          <h4 className="h4">Agent info</h4>
           {Object.keys(agentStateData).map((key) => {
             switch (key){
               case "agentname": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Agent name</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "description": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Description</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "sourcetype": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Source type</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "dbschemasource": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>DB schema source</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "repoidfield": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Repository ID</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "oauthuri": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>OAuth URI</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "authenticationmethod": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Authentication method</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "accesstokenendpoint": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Access token</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "authorizationbaseurl": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Authorization base URL</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "requesttokenendpoint": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>Request token</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "apikey": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>API key</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
               case "apisecret": return (
-                <Container style={style("flex-row")}>
+                <Container className="flex-row">
                   <div>API secret</div>
                   <Input
+                    className="input"
                     type="text"
                     name={key}
                     value={agentStateData[key]}
-                    style={style("input")}
                     onChange={handleChange(key)}
                   />
                 </Container>
               )
             } 
           })}
-          <Container style={style("flex-row")}>
+          <Container className="flex-row">
             <div>Connected</div>
             <Input
               type="checkbox"
@@ -276,8 +242,8 @@ function CreateNewAgent(props) {
       </Card>
       <>
         <Button 
+          className="save"
           color="primary" 
-          style={style("save")} 
           onClick={submit} 
           disabled={!isModified}
         >
