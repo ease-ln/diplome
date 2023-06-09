@@ -27,7 +27,7 @@ class Goal extends React.Component {
     }
 
     loadData() {
-        var promise = new Promise(() => { 
+        const promise = new Promise(() => { 
             this.getGoalData(localStorage.getItem('mr-token'), this.state.userId);
         });
         return promise

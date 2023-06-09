@@ -119,7 +119,7 @@ function checkValidServiceWorker(swUrl, config) {
         // Service worker found. Proceed as normal.
         (async function ValidSW() {
           try {
-            await registerValidSW(swUrl, config);
+            registerValidSW(swUrl, config);
           } catch (error) {
             console.error('An error occurred:', error);
           }
