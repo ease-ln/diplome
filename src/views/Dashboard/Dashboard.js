@@ -72,7 +72,6 @@ class Dashboard extends Component {
         console.error('An error occurred:', error);
       }
     })();
-    someFunction()
     }
 
   projectMapPropsToState = async () => {
@@ -80,7 +79,7 @@ class Dashboard extends Component {
       this.props.projects.length > 0 &&
       !this.state.projectSelected.projectID
     ) {
-      var projectId = this.props.projects[0]
+      var projectId = this.props.projects[0];
       (async function someFunction() {
         try {
           await this.setProject(projectId);
@@ -88,7 +87,6 @@ class Dashboard extends Component {
           console.error('An error occurred:', error);
         }
       })();
-      
     }
     (async function someFunction() {
       try {
@@ -201,7 +199,13 @@ class Dashboard extends Component {
             newArr.push(el)
           }
         }
-        this.setSQProject(newArr[0])
+        (async function someFunction() {
+          try {
+            await this.setSQProject(newArr[0]);
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+        })();
         this.setState({ allSQProjects: newArr })
       }
     }
@@ -380,10 +384,14 @@ class Dashboard extends Component {
   }
 
   someFunc = async (p) => {
-    await this.setSQProject(p)
-    this.numOfClassesReturn()
-    this.LOCReturn()
-    this.CodeCoverageReturn()
+    try {
+      await this.setSQProject(p)
+      await this.numOfClassesReturn()
+      await this.LOCReturn()
+      await this.CodeCoverageReturn()
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 
   Loading = () => (
