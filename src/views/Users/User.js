@@ -46,25 +46,21 @@ function User(props) {
         setError("short password");
         return ;
     }}
-    try{
-      postDataFlow(data)
-      .then(() => {
-        setError("success");
-      }).catch((error) => {
-        console.error("Error occurred while executing Promise:", error)
-      });
-      if (password !== undefined){
-        changePasswordFlow({ password })
-        .then(() => {
-          setError("success");
-        }).catch((error) => {
-          console.error("Error occurred while executing Promise:", error)
-        });
-      }
-    } catch(e) {
-      setError(e);
-    }
+    postDataFlow(data)
+    .then(() => {
+      setError("success");
+    }).catch((error) => {
+      console.error("Error occurred while executing Promise:", error)
+    });
+  if (password !== undefined){
+    changePasswordFlow({ password })
+    .then(() => {
+      setError("success");
+    }).catch((error) => {
+      console.error("Error occurred while executing Promise:", error)
+    });
   }
+  
 
   function getInfo() {
     try {

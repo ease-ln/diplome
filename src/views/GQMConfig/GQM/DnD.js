@@ -39,7 +39,8 @@ class DnD extends React.Component {
 
     loadData() {
         const promise = new Promise((resolve, reject) => { 
-            this.getQuestionsData();
+            this.getQuestionsData().catch(error => {
+                console.error('An error occurred:', error)});
         });
         return promise
       }
