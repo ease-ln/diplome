@@ -1,22 +1,21 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button, Badge
+  Button, 
+  Badge
 } from 'reactstrap'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
-import {connect} from 'react-redux'
-import {fromJS} from 'immutable'
-import {actionCreator} from "../../redux/agents/action-creators";
-import {getData, localStorageKey} from "../../redux/utils";
+import { connect } from 'react-redux'
+import { fromJS } from 'immutable'
+import { actionCreator } from "../../redux/agents/action-creators";
+import { getData, localStorageKey } from "../../redux/utils";
+
+import "../../scss/styles.css";
 
 class MenuMethods extends Component {
-  state = {methods: []}
+  state = { methods: [] }
   createNewMethod = () => {
     this.props.history.push(this.props.history.location.pathname + '/create')
   }
@@ -35,41 +34,43 @@ class MenuMethods extends Component {
   }
   render() {
     const methods = this.props.methods
-    methods.sort((a,b)=>a.methodid - b.methoid)
+    methods.sort((a, b) => a.methodid - b.methodid)
+
+    if (methods.length === 0) {
+      return (
+        <div className="animated fadeIn">
+          <h3 style={{ marginBottom: "20px" }}>There are no methods yet</h3>
+          <Button color="primary" onClick={this.createNewMethod}>Create new method</Button>
+        </div>
+    )} 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                List of methods of [{this.props.agent.agentname}]
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>Method id</strong></td>
-                    <td><strong>Agent Name</strong></td>
-                    <td><strong>Description</strong></td>
-                    <td><strong>Is Active</strong></td>
-                  </tr>
-                  {methods.map((value, idx) => {
-                    return (
-                      <tr key={`${value.methodid}`} onClick={()=>{this.goToMethod(value.methodid)}}>
-                        <td>{value.methodid}</td>
-                        <td>{this.props.agent.agentname}</td>
-                        <td>{value.description}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-				<Button color="primary" onClick={this.createNewMethod}>Create New Method</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Methods of {this.props.agent.agentname}</h3>
+          <CardBody className="card-grid">
+            {methods.map((value, idx) => {
+              return (
+                <Card key={idx} onClick={ () => {this.goToMethod(value.methodid)} } style={{ padding: "10px", margin: "10px" }}>
+                  <div>{this.badge(value.isactive)}</div>
+                  <Badge color="secondary">Method id: {value.methodid}</Badge>
+                  <i className="icon-arrow-right icons position-right"></i>
+                  <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{this.props.agent.agentname}</div>
+                  {value.description && (<p style={{ color: "#73818F" }}>{value.description}</p>)}
+                  {!value.description && (<p style={{ color: "#73818F" }}>Description</p>)}
+                </Card>
+              )
+            })}
+          </CardBody>
+          <Button 
+            color="primary" 
+            className="save" 
+            style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+            onClick={this.createNewMethod}
+          >
+            <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+            Create new method
+          </Button>
+        </Card>
       </div>
     )
   }

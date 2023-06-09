@@ -2,11 +2,8 @@ import React, {Component} from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
-  Button, Badge
+  Button, 
+  Badge
 } from 'reactstrap'
 import {withRouter} from 'react-router-dom'
 
@@ -15,14 +12,19 @@ import {fromJS} from 'immutable'
 import {getData, localStorageKey} from "../../redux/utils";
 import {actionCreator} from "../../redux/agents/action-creators";
 
+import "../../scss/styles.css";
+
 class MenuResponses extends Component {
   state = {responses: []}
+
   createNewResponses = () => {
     this.props.history.push(this.props.history.location.pathname + '/create')
   }
+
   goToResponses = (id) => {
     this.props.history.push(this.props.history.location.pathname + '/' + id)
   }
+
   async componentDidMount(){
     const token = getData(localStorageKey).token;
     const id = this.props.match.params.id2
@@ -30,47 +32,53 @@ class MenuResponses extends Component {
     await actionCreator.getMethod(token, id)(this.props.dispatch)
     await actionCreator.getAgent(token, this.props.match.params.id)(this.props.dispatch)
   }
-  badge = (status)=>{
-    if(status === "Y")return(<Badge color="success">Active</Badge>);
-    else return(<Badge color="danger">Not active</Badge>)
+
+  badge = (status) => {
+    if (status === "Y") return (<Badge color="success">Active</Badge>);
+    else return (<Badge color="danger">Not active</Badge>)
   }
+  
   render() {
     const responses = this.props.responses;
-    responses.sort((a,b)=>a.responseid - b.responseid)
+    responses.sort((a, b) => a.responseid - b.responseid)
+
+    if (responses.length === 0) {
+      return (
+        <div className="animated fadeIn">
+          <h3 style={{ marginBottom: "20px" }}>There are no responses yet</h3>
+          <Button color="primary" onClick={this.createNewResponses}>Create new response</Button>
+        </div>
+    )} 
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                List of responses of method with description: "{this.props.method.description}" from agent [{this.props.agent.agentname}]
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>Response id</strong></td>
-                    <td><strong>Param Name</strong></td>
-                    <td><strong>Response Param</strong></td>
-                    <td><strong>Is Active</strong></td>
-                  </tr>
-                  {responses.map((value) => {
-                    return (
-                      <tr key={`${value.configresponseid}`} onClick={()=>{this.goToResponses(value.configresponseid)}}>
-                        <td>{value.configresponseid}</td>
-                        <td>{value.paramname}</td>
-                        <td>{value.responseparam}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-				<Button color="primary" onClick={this.createNewResponses}>Create New Responses</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>
+          Responses of method "{this.props.method.description}" from {this.props.agent.agentname} agent
+        </h3>
+          <CardBody className="card-grid">
+            {responses.map((value, idx) => {
+              return (
+                <Card key={idx} onClick={ () => {this.goToResponses(value.configresponseid)} } style={{ padding: "10px", margin: "10px" }}>
+                  <div>{this.badge(value.isactive)}</div>
+                  <Badge color="secondary">Response id: {value.configresponseid}</Badge>
+                  <i className="icon-arrow-right icons position-right"></i>
+                  <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.paramname}</div>
+                  {value.description && (<p style={{ color: "#73818F" }}>{value.responseparam}</p>)}
+                  {!value.description && (<p style={{ color: "#73818F" }}>No parameters</p>)}
+                </Card>
+              )
+            })}
+          </CardBody>
+          <Button 
+            color="primary" 
+            className="save" 
+            style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+            onClick={this.createNewResponses}
+          >
+            <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+            Create new response
+          </Button>
+        </Card>
       </div>
     )
   }
