@@ -1,31 +1,29 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
+  Container,
   Button,
-  Input, CustomInput,
+  Input, 
+  CustomInput,
 } from 'reactstrap'
-import {withRouter} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 
-import {connect} from 'react-redux'
-import {fromJS} from 'immutable'
-import {getData, localStorageKey} from "../../redux/utils";
-import {actionCreator} from "../../redux/agents/action-creators";
+import { connect } from 'react-redux'
+import { fromJS } from 'immutable'
+import { getData, localStorageKey } from "../../redux/utils";
+import { actionCreator } from "../../redux/agents/action-creators";
+
+import "../../scss/styles.css";
 
 class ConfigMethods extends Component {
   state = {}
 
-  handleChange = (k) => (e) => {
-    const key = k.toLowerCase()
+  handleChange = (key) => (e) => {
     this.setState({[key]: e.target.value})
   }
   handleCheck = (e) => {
-    const key = "isactive"
-    this.setState({[key]: e.target.checked})
+    this.setState({isactive: e.target.checked})
   }
   goToDetails = () => {
     this.props.history.push(this.props.history.location.pathname + '/details')
@@ -36,11 +34,17 @@ class ConfigMethods extends Component {
   save = async () => {
     const payload = {}
     for (const v in this.state){
-      if(this.state[v] === ""){payload[v] = null;continue;}
-      if(v ==="isactive"){payload[v] = this.state[v] ? "Y" : "N";continue;}
-      if(v === "createdby")continue
-      if(v === "creationdate")continue
-      payload[v] = this.state[v]
+      if (this.state[v] === ""){
+        payload[v] = null;
+        continue;
+      }
+      if (v ==="isactive"){
+        payload[v] = this.state[v] ? "Y" : "N";
+        continue;
+      }
+      if (v === "createdby") continue;
+      if (v === "creationdate") continue;
+      payload[v] = this.state[v];
     }
     const agent_id = this.props.match.params.id
     try {
@@ -79,158 +83,146 @@ class ConfigMethods extends Component {
     await actionCreator.getMethod(token, id)(this.props.dispatch)
     const obj = {}
     Object.entries(this.props.method).forEach(([k,v])=>{
-      if(k==="configParameters")return;
-      if(k==="isactive")obj[k] = v === "Y"
+      if (k === "configParameters") return;
+      if (k === "isactive") obj[k] = v === "Y"
       else obj[k] = v
     })
     this.setState(obj)
   }
   render() {
-    const {isactive, methodid, lastupdate, updateby, creationdate, agentid, createdby, ...agentStateData} = this.state
+    const {isactive, methodid, lastupdate, updateby, creationdate, agentid, createdby, ...methodStateData} = this.state
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Change Method's config info
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td>
-                      Method id
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="methodid"
-                        disabled
-                        value={methodid}
-                        onChange={this.handleChange("methodid")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Agent id
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="agentid"
-                        disabled
-                        value={agentid}
-                        onChange={this.handleChange("agentid")}
-                      />
-                    </td>
-                  </tr>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      Creation Date
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="creationdate"
-                        disabled
-                        value={creationdate===null ? "" : new Date(creationdate).toDateString()}
-                        onChange={this.handleChange("creationdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Created By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="createdby"
-                        disabled
-                        value={createdby}
-                        onChange={this.handleChange("createdby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Last Update
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="lastupdate"
-                        disabled
-                        value={lastupdate===null ? "" : new Date(lastupdate).toDateString()}
-                        onChange={this.handleChange("lastupdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Updated By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="updateby"
-                        disabled
-                        value={updateby===null ? "" : updateby}
-                        onChange={this.handleChange("updateby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      is Active
-                    </td>
-                    <td>
-                      <CustomInput
-                        id="isactive"
-                        type="switch"
-                        name="isactive"
-                        checked={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.save}>
-                    Save
-                  </Button>
-                  <Button color="danger" onClick={this.remove}>
-                    Delete
-                  </Button>
-                  <Button color="secondary" onClick={this.goToResponses}>
-                    Go to response config
-                  </Button>
-                  <Button color="secondary" onClick={this.goToDetails}>
-                    Go to config details
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Config Method</h3>
+          <CardBody>
+            <div style={{ display: "flex", flexDirection: "column", marginLeft: "0px" }}>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Method id</p>
+                  <p>{methodid}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Agent id</p>
+                  <p>{agentid}</p>
+                </Container>
+              </div>
+              <div className='row-info'>
+              <Container className='info'>
+                  <p className='header-small'>Creation date</p>
+                  <p>{new Date(creationdate).toDateString()}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Created by</p>
+                  <p>{createdby}</p>
+                </Container>
+              </div>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Last updated by</p>
+                  {lastupdate && (<p>{new Date(lastupdate).toDateString()}</p>)}
+                  {!lastupdate && (<p>None</p>)}
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Updated by</p>
+                  {updateby && (<p>{updateby}</p>)}
+                  {!updateby && (<p>None</p>)}
+                </Container>
+              </div>
+            </div>
+            <hr/>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Operation:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="operation"
+                  value={methodStateData.operation}
+                  onChange={this.handleChange('operation')}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Request Type:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="requesttype"
+                  value={methodStateData.requesttype}
+                  onChange={this.handleChange('requesttype')}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Endpoint:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="endpoint"
+                  value={methodStateData.endpoint}
+                  onChange={this.handleChange('endpoint')}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Description:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="description"
+                  value={methodStateData.description}
+                  onChange={this.handleChange('description')}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Method is active:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isactive"
+                    type="switch"
+                    name="isactive"
+                    checked={isactive}
+                    onChange={this.handleCheck}
+                  />
+              </Container>
+            </div>
+            <hr/>
+            <div style={{ width: "770px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", marginTop: "20px" }}>
+                <Button color="danger" style={{ width: "fit-content" }} onClick={this.remove}>
+                  Delete method
+                </Button>
+                <Button color="secondary" onClick={this.goToResponses}>
+                  Go to Response Config
+                </Button>
+                <Button color="secondary" style={{ marginLeft: "15px" }} onClick={this.goToDetails}>
+                  Go to Config Details
+                </Button>
+                <Button color="primary" style={{ marginLeft: "15px" }} onClick={this.save}>
+                  <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+                  Save changes
+                </Button>
+                </div>
+          </CardBody>
+        </Card>
       </div>
     )
   }

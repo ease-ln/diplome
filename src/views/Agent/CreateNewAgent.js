@@ -5,6 +5,8 @@ import {
   Input,
   Button,
   Container,
+  CustomInput,
+  Alert,
 } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 
@@ -32,14 +34,14 @@ function CreateNewAgent(props) {
   })
 
   const [isModified, setIsModified] = useState(false);
-  const [, setError] = useState('');
+  const [error, setError] = useState('');
 
-  const handleChange = (k) => (e) => {
-    const key = k.toLowerCase();
+  const handleChange = (key) => (e) => {
     const value = e.target.value;
     setAgentData(previousState => {
       return { ...previousState, [key]: value }});
     setIsModified(true);
+    setError("");
   }
 
   const handleCheck = (e) => {
@@ -49,6 +51,10 @@ function CreateNewAgent(props) {
   }
 
   const submit = async () => {
+    if (agentData.agentname === "") {
+      setError("empty agent name");
+      return ;
+    }
     const payload = {
       ...(agentData)
     }
@@ -59,13 +65,11 @@ function CreateNewAgent(props) {
     }
     try {
       const token = getData(localStorageKey).token;
-      await actionCreator.postAgent(token, payload)()
-      .then((response) => console.log(response));
+      await actionCreator.postAgent(token, payload)();
       await actionCreator.fetchAgents(token, 0)(props.dispatch);
     }
     catch (e) {
       setError(e);
-      console.log(e.stack);
     }
     finally {
       props.history.push("/agentMenu");
@@ -76,181 +80,215 @@ function CreateNewAgent(props) {
   
   return (
     <div className="animated fadeIn" style={{ margin: "0 auto", position: "relative" }}>
-      <h3 style={{ marginBottom: "20px" }}>Create new agent</h3>
-      <Card style={{ margin: "0 auto", marginBottom: "40px", width: "482px", backgroundColor: "#F7FAFC" }}>
-        <CardBody>
-          <h4 className="h4">Agent info</h4>
-          {Object.keys(agentStateData).map((key) => {
-            switch (key){
-              case "agentname": return (
-                <Container className="flex-row">
-                  <div>Agent name</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
+      <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Create integration</h3>
+          <CardBody>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Agent name:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="agentname"
+                  value={agentStateData.agentname}
+                  onChange={handleChange("agentname")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Description:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="description"
+                  value={agentStateData.description}
+                  onChange={handleChange("description")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>API key:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="apikey"
+                  value={agentStateData.apikey}
+                  onChange={handleChange("apikey")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Authorization base URL:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="authorizationbaseurl"
+                  value={agentStateData.authorizationbaseurl}
+                  onChange={handleChange("authorizationbaseurl")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>OAuth URI:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="oauthuri"
+                  value={agentStateData.oauthuri}
+                  onChange={handleChange("oauthuri")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>API secret:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="apisecret"
+                  value={agentStateData.apisecret}
+                  onChange={handleChange("apisecret")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Access token endpoint:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="accesstokenendpoint"
+                  value={agentStateData.accesstokenendpoint}
+                  onChange={handleChange("accesstokenendpoint")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Repository ID:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="repositoryid"
+                  value={agentStateData.repositoryid}
+                  onChange={handleChange("repositoryid")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Source type:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="sourcetype"
+                  value={agentStateData.sourcetype}
+                  onChange={handleChange("sourcetype")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Authentication method:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="authenticationmethod"
+                  value={agentStateData.authenticationmethod}
+                  onChange={handleChange("authenticationmethod")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>DB schema source:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="dbschemasource"
+                  value={agentStateData.dbschemasource}
+                  onChange={handleChange("dbschemasource")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Request token endpoint:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="requesttokenendpoint"
+                  value={agentStateData.requesttokenendpoint}
+                  onChange={handleChange("requesttokenendpoint")}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Integration is connected:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isconnected"
+                    type="switch"
+                    name="isconnected"
+                    checked={isconnected}
+                    onChange={handleCheck}
                   />
-                </Container>
-              )
-              case "description": return (
-                <Container className="flex-row">
-                  <div>Description</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "sourcetype": return (
-                <Container className="flex-row">
-                  <div>Source type</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "dbschemasource": return (
-                <Container className="flex-row">
-                  <div>DB schema source</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "repoidfield": return (
-                <Container className="flex-row">
-                  <div>Repository ID</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "oauthuri": return (
-                <Container className="flex-row">
-                  <div>OAuth URI</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "authenticationmethod": return (
-                <Container className="flex-row">
-                  <div>Authentication method</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "accesstokenendpoint": return (
-                <Container className="flex-row">
-                  <div>Access token</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "authorizationbaseurl": return (
-                <Container className="flex-row">
-                  <div>Authorization base URL</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "requesttokenendpoint": return (
-                <Container className="flex-row">
-                  <div>Request token</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "apikey": return (
-                <Container className="flex-row">
-                  <div>API key</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-              case "apisecret": return (
-                <Container className="flex-row">
-                  <div>API secret</div>
-                  <Input
-                    className="input"
-                    type="text"
-                    name={key}
-                    value={agentStateData[key]}
-                    onChange={handleChange(key)}
-                  />
-                </Container>
-              )
-            } 
-          })}
-          <Container className="flex-row">
-            <div>Connected</div>
-            <Input
-              type="checkbox"
-              name="isconnected"
-              value={isconnected}
-              style={{ marginLeft: "160px", }}
-              onChange={handleCheck}
-            />
-          </Container>
-        </CardBody>
-      </Card>
-      <>
-        <Button 
-          className="save"
-          color="primary" 
-          onClick={submit} 
-          disabled={!isModified}
-        >
-          <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
-          Create agent
-        </Button>
-      </>
+              </Container>
+            </div>
+            <hr/>
+            {error === "empty agent name" && (
+              <Alert color="danger" style={{ marginBottom: "15px", marginTop: "-7px" }}>
+                Agent name cannot be empty
+              </Alert>
+            )}
+            <Button color="primary" onClick={submit} disabled={!isModified || error === "empty agent name"}>
+              <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+              Create integration
+            </Button>
+          </CardBody>
+        </Card>
     </div>
   )
 }
