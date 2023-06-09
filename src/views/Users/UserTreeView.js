@@ -67,7 +67,7 @@ export default class UserTreeView extends React.Component {
     super(props)
 
     this.state = {
-      tree: getRoot(props.users, props.projects),
+      tree: getRoot(),
       downloadingChart: false,
       config: {},
       highlightPostNumbers: [1],
@@ -97,7 +97,9 @@ export default class UserTreeView extends React.Component {
             [pr.projectID]: res.userList,
           },
         })
-      })
+      }).catch(error => {
+        console.error('An error occurred:', error);
+    });
     })
   }
 
