@@ -26,9 +26,9 @@ export const getCumulLineData = (hourlyReport, apps) => {
     }
   }
 
-  for (let i = 0; i < datasets.length; i++) {
-    datasets[i].data = datasets[i].data.map((x) => timestrToSec(x));
-  }
+  for (let dataset of datasets) {
+    dataset.data = dataset.data.map((x) => timestrToSec(x));
+  }  
 
   return {
     labels,
