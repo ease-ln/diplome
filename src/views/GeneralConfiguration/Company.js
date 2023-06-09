@@ -2,12 +2,8 @@ import React, { Component } from 'react'
 import {
   Card,
   CardBody,
-  CardHeader,
-  Col,
-  Row,
-  Table,
   Button,
-  Input, CustomInput,
+  Input, CustomInput, Container,
 } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 
@@ -16,23 +12,27 @@ import { fromJS } from 'immutable'
 import { getData, localStorageKey } from "../../redux/utils";
 import { actionCreator } from "../../redux/generalConfiguration/action-creators";
 
+import "../../scss/styles.css";
+
 class Company extends Component {
   state = {}
 
-  handleChange = (k) => (e) => {
-    const key = k.toLowerCase()
-    this.setState({[key]: e.target.value})
+  handleChange = (e) => {
+    this.setState({ companyname: e.target.value })
   }
+
   handleCheck = (e) => {
-    const key = "isactive"
-    this.setState({[key]: e.target.checked})
+    this.setState({ isactive: e.target.checked })
   }
+
   goToAgents_x_company = () => {
     this.props.history.push(this.props.history.location.pathname + '/agxcom')
   }
+
   goToTeams = () => {
     this.props.history.push(this.props.history.location.pathname + '/teams')
   }
+
   save = async () => {
     const payload = {};
     for (const v in this.state){
@@ -64,6 +64,7 @@ class Company extends Component {
       this.props.history.push(url);
     }
   }
+
   remove = async () => {
     try {
       const id = this.props.match.params.id1;
@@ -79,6 +80,7 @@ class Company extends Component {
       this.props.history.push(url);
     }
   }
+
   async componentDidMount(){
     const token = getData(localStorageKey).token;
     const id = this.props.match.params.id1;
@@ -90,138 +92,92 @@ class Company extends Component {
     })
     this.setState(obj);
   }
+
   render() {
-    const {isactive, companyid, creationdate, createdby, lastupdate, updateby, ...agentStateData} = this.state
+    const {isactive, companyid, creationdate, createdby, lastupdate, updateby, ...companyStateData} = this.state
     return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-            <Card>
-              <CardHeader>
-                Change Company's config info
-              </CardHeader>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td>
-                      Company id
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="companyid"
-                        disabled
-                        value={companyid}
-                        onChange={this.handleChange("companyid")}
-                      />
-                    </td>
-                  </tr>
-                  {Object.keys(agentStateData).map(
-                    (k) => (
-                      <tr key={k}>
-                        <td>{`${k}:`}</td>
-                        <td>
-                          <Input
-                            type="text"
-                            name={k}
-                            value={agentStateData[k]}
-                            onChange={this.handleChange(k)}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )}
-                  <tr>
-                    <td>
-                      Creation Date
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="creationdate"
-                        disabled
-                        value={creationdate===null ? "" : new Date(creationdate).toDateString()}
-                        onChange={this.handleChange("creationdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Created By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="createdby"
-                        disabled
-                        value={createdby===null ? "" : createdby}
-                        onChange={this.handleChange("createdby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Last Update
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="lastupdate"
-                        disabled
-                        value={lastupdate===null ? "" : new Date(lastupdate).toDateString()}
-                        onChange={this.handleChange("lastupdate")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Updated By
-                    </td>
-                    <td>
-                      <Input
-                        type="text"
-                        name="updateby"
-                        disabled
-                        value={updateby===null ? "" : updateby}
-                        onChange={this.handleChange("updateby")}
-                      />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      Is Active
-                    </td>
-                    <td>
-                      <CustomInput
-                        id="isactive"
-                        type="switch"
-                        name="isactive"
-                        checked={isactive}
-                        onChange={this.handleCheck}
-                      />
-                    </td>
-                  </tr>
-                  </tbody>
-                </Table>
-                <>
-                  <Button color="success" onClick={this.save}>
-                    Save
-                  </Button>
-                  <Button color="danger" onClick={this.remove}>
-                    Delete
-                  </Button>
-                  <Button color="secondary" onClick={this.goToAgents_x_company}>
-                    Go to Agents x companies
-                  </Button>
-                  <Button color="secondary" onClick={this.goToTeams}>
-                    Go to Teams
-                  </Button>
-                </>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <Card style={{ width: "100%", alignItems: "first baseline" }}>
+        <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>About company</h3>
+          <CardBody>
+            <div style={{ display: "flex", flexDirection: "column", marginLeft: "0px" }}>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Company id</p>
+                  <p>{companyid}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Creation date</p>
+                  <p>{new Date(creationdate).toDateString()}</p>
+                </Container>
+              </div>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Created by</p>
+                  <p>{createdby}</p>
+                </Container>
+                <Container className='info'>
+                  <p className='header-small'>Last updated by</p>
+                  {lastupdate && (<p>{new Date(lastupdate).toDateString()}</p>)}
+                  {!lastupdate && (<p>None</p>)}
+                </Container>
+              </div>
+              <div className='row-info'>
+                <Container className='info'>
+                  <p className='header-small'>Updated by</p>
+                  {updateby && (<p>{updateby}</p>)}
+                  {!updateby && (<p>None</p>)}
+                </Container>
+              </div>
+            </div>
+            <hr/>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Company name:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <Input
+                  className="input"
+                  style={{ width: "100%" }}
+                  type="text"
+                  name="companyname"
+                  value={companyStateData.companyname}
+                  onChange={this.handleChange}
+                />
+              </Container>
+            </div>
+            <div className='row-info'>
+              <Container className='flex-row info'>
+                <p style={{ marginBottom: "0px" }}>Company is active:</p>
+              </Container>
+              <Container className='flex-row info'>
+                <CustomInput
+                    id="isactive"
+                    type="switch"
+                    name="isactive"
+                    checked={isactive}
+                    onChange={this.handleCheck}
+                  />
+              </Container>
+            </div>
+            <hr/>
+            <div style={{ width: "770px", display: "grid", gridTemplateColumns: "1fr 1fr 1fr 1fr", marginTop: "20px" }}>
+                <Button color="danger" style={{ width: "fit-content" }} onClick={this.remove}>
+                  Delete company
+                </Button>
+                <Button color="secondary" onClick={this.goToAgents_x_company}>
+                  Go to Integrations
+                </Button>
+                <Button color="secondary" style={{ marginLeft: "15px" }} onClick={this.goToTeams}>
+                  Go to Teams
+                </Button>
+                <Button color="primary" style={{ marginLeft: "15px" }} onClick={this.save}>
+                  <i className="fa fa-save fa-lg" style={{ marginRight: "7px" }}></i>
+                  Save changes
+                </Button>
+                </div>
+          </CardBody>
+        </Card>
       </div>
     )
   }

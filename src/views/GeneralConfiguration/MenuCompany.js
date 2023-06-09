@@ -3,10 +3,7 @@ import {
   Card,
   Badge,
   CardBody,
-  Col,
-  Row,
-  Table,
-  Button
+  Button,
 } from 'reactstrap'
 import { withRouter } from 'react-router-dom'
 
@@ -14,6 +11,8 @@ import { connect } from 'react-redux'
 import { fromJS } from 'immutable'
 import { getData, localStorageKey } from "../../redux/utils";
 import { actionCreator } from "../../redux/generalConfiguration/action-creators";
+
+import "../../scss/styles.css";
 
 class MenuCompany extends Component {
   state = { companies: [] }
@@ -60,36 +59,32 @@ class MenuCompany extends Component {
     )} 
     else return (
       <div className="animated fadeIn">
-        <Row>
-          <Col lg={6}>
-          <h3 style={{ marginBottom: "20px" }}>List of companies</h3>
-            <Card>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>Company id</strong></td>
-                    <td><strong>Company Name</strong></td>
-                    <td><strong>Updated By</strong></td>
-                    <td><strong>Is Active</strong></td>
-                  </tr>
-                  {companies.map((value, idx) => {
-                    return (
-                      <tr key={idx} onClick={ () => {this.goToCompany(value.companyid)} }>
-                        <td>{value.companyid}</td>
-                        <td>{value.companyname}</td>
-                        <td>{value.updateby}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-                <Button color="primary" onClick={this.createNewCompany}>Create new company</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+          <Card>
+          <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Companies</h3>
+            <CardBody className="card-grid">
+              {companies.map((value, idx) => {
+                return (
+                  <Card key={idx} onClick={ () => {this.goToCompany(value.companyid)} } style={{ padding: "10px", margin: "10px" }}>
+                    <div>{this.badge(value.isactive)}</div>
+                    <Badge color="secondary">Company id: {value.companyid}</Badge>
+                    <i className="icon-arrow-right icons position-right"></i>
+                    <div style={{ fontWeight: "bold", marginBottom: "10px" }}>{value.companyname}</div>
+                    {value.updateby && (<p style={{ color: "#73818F" }}>Last updated by {value.updateby}</p>)}
+                    {!value.updateby && (<p style={{ color: "#73818F" }}>Has not been updated</p>)}
+                  </Card>
+                )
+              })}
+            </CardBody>
+            <Button 
+              color="primary" 
+              className="save" 
+              style={{ margin: "17px", marginBottom: "0px", paddingTop: "5px", paddingBottom: "6px" }} 
+              onClick={this.createNewCompany}
+            >
+              <i className="icon-plus icons" style={{ marginRight: "7px" }}></i>
+              Create new company
+            </Button>
+          </Card>
       </div>
     )
   }
