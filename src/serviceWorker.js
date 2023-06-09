@@ -136,7 +136,9 @@ function checkValidServiceWorker(swUrl, config) {
 export function unregister() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.ready.then(registration => {
-      registration.unregister();
+      registration.unregister().catch(error => {
+        console.error('An error occurred:', error);
+      });
     }).catch(error => {
       console.error('An error occurred:', error);
     });
