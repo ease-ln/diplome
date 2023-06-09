@@ -57,6 +57,9 @@
     "yarn": "^1.22.19"
   },
   "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-plugin-only-warn": "^1.1.0",
+    "eslint-plugin-react": "^7.32.2",
     "react-scripts": "^2.1.8"
   },
   "scripts": {

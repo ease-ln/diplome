@@ -56,23 +56,23 @@ function Register(props) {
 
     if (firstName === ""){
       err.firstName = "error";
-    };
+    }
 
     if (surname === ""){
       err.surname = "error";
-    };
+    }
 
     if (firstName === "" || surname === "" || email === "" || password === "") {
       err.fields = "All fields are required";
-    };
+    }
     
     if (!isEmail(email)) {
       err.email = "Invalid e-mail";
-    };
+    }
 
     if (password.length < 8) {
       err.password = "Password is too short. Must include 8+ characters";
-    };
+    }
 
     if (!Object.values(err).every(value => value === "")){
       setError(err);
