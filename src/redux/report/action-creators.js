@@ -9,7 +9,7 @@ import {
 } from '../../services/ReportService'
 import { fetchActivities } from '../../services/ActivityService'
 import { parseDate } from '../utils.js'
-import { formatDate } from '../../views/Dashboard/DashboardHelper'
+import { formatDate } from '../../views/NewDashboard/Helpers/DashboardHelper'
 
 const lastFetchedKey = 'lastFetchedActivities'
 const timeLocalStorageKey = 'timeReport'

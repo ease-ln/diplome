@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Input, InputGroup, InputGroupAddon, InputGroupText } from "reactstrap";
 
-import { formatDate } from "./DashboardHelper.js";
+import { formatDate } from "./Helpers/DashboardHelper";
 
 class CustomInput extends Component {
   render() {
