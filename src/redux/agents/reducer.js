@@ -17,31 +17,29 @@ export const reducer = (state = initState, action) => {
   const { type, payload } = action;
   switch (type) {
     case _.AGENTS:
-      return payload.agentList && payload.agentList.length > 0
-        ? state.set("agents", payload.agentList)
-        : state;
+      return setIfPayloadExists(state, "agents", payload.agentList);
     case _.METHODS:
-      return state.set("methods", payload.methodsList || state.get("methods"));
+      return setIfPayloadExists(state, "methods", payload.methodsList);
     case _.DETAILS:
-      return state.set("details", payload.detailsList || state.get("details"));
+      return setIfPayloadExists(state, "details", payload.detailsList);
     case _.RESPONSES:
-      return state.set("responses", payload.responseList || state.get("responses"));
+      return setIfPayloadExists(state, "responses", payload.responseList);
     case _.PROJECT_LIST:
-      return payload.projectList && payload.projectList.length > 0
-        ? state.set("agentProjectList", {
-            [payload.agentId]: payload.projectList,
-          })
-        : state;
+      return setIfPayloadExists(state, "agentProjectList", {
+        [payload.agentId]: payload.projectList,
+      });
     case _.GET_AGENT:
-      return payload ? state.set("agent", payload) : state;
+      return setIfPayloadExists(state, "agent", payload);
     case _.GET_METHOD:
-      return payload ? state.set("method", payload) : state;
+      return setIfPayloadExists(state, "method", payload);
     case _.GET_RESPONSE:
-      return payload ? state.set("response", payload) : state;
+      return setIfPayloadExists(state, "response", payload);
     case _.GET_DETAIL:
-      return payload ? state.set("detail", payload) : state;
+      return setIfPayloadExists(state, "detail", payload);
     default:
       return state;
   }
 };
 
+const setIfPayloadExists = (state, key, value) =>
+  value ? state.set(key, value) : state;

@@ -10,48 +10,28 @@ const initState = fromJS({
   individualActivities: [],
 });
 
+const updateState = (state, action, property) => {
+  if (action.payload.report && action.payload.report.length > 0) {
+    return state.set("lastFetched", parseDate(new Date())).set(property, action.payload.report);
+  } else {
+    return state;
+  }
+};
+
 export const reducer = (state = initState, action) => {
   switch (action.type) {
     case _.ACTIVITY:
-      if (action.payload.report && action.payload.report.length > 0) {
-        return state
-          .set("lastFetched", parseDate(new Date()))
-          .set("activities", action.payload.report);
-      } else {
-        return state;
-      }
+      return updateState(state, action, "activities");
     case _.TIME:
-      if (action.payload.report && action.payload.report.length > 0) {
-        return state
-          .set("lastFetched", parseDate(new Date()))
-          .set("time", action.payload.report);
-      } else {
-        return state;
-      }
+      return updateState(state, action, "time");
     case _.CUMUL:
-      if (
-        action.payload.activityReports &&
-        action.payload.activityReports.length > 0
-      ) {
-        return state
-          .set("lastFetched", parseDate(new Date()))
-          .set("cumul", action.payload.activityReports);
-      } else {
-        return state;
-      }
+      return updateState(state, action, "cumul");
     case _.CATEGORY:
-      if (action.payload.report && action.payload.report.length > 0) {
-        return state.set("category", action.payload.report);
-      } else {
-        return state;
-      }
+      return updateState(state, action, "category");
+    case _.ACTIVITIES:
+      return state.set("individualActivities", action.payload.report || []);
     default:
       return state;
-    case _.ACTIVITIES:
-      if (action.payload.report && action.payload.report.length > 0) {
-        return state.set("individualActivities", action.payload.report);
-      } else {
-        return state;
-      }
   }
 };
+
