@@ -435,7 +435,8 @@ class Dashboard extends Component {
             <DropdownItem header>Components</DropdownItem>
             {this.state.allSQProjects.map((p) => (
               <DropdownItem key={p.projectName} onClick={() => {
-                this.someFunc(p)
+                this.someFunc(p).catch(error => {
+                  console.error('An error occurred:', error)});
               }}>
                 {p.projectName}
               </DropdownItem>

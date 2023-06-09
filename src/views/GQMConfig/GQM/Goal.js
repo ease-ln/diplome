@@ -28,7 +28,8 @@ class Goal extends React.Component {
 
     loadData() {
         const promise = new Promise(() => { 
-            this.getGoalData(localStorage.getItem('mr-token'), this.state.userId);
+            this.getGoalData(localStorage.getItem('mr-token'), this.state.userId).catch(error => {
+                console.error('An error occurred:', error)});
         });
         return promise
       }

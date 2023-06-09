@@ -27,8 +27,9 @@ class MenuCompany extends Component {
   }
 
   loadData(token) {
-    let promise = new Promise((resolve, reject) => { 
-      actionCreator.fetchCompanies(token)(this.props.dispatch);
+    let promise = new Promise(() => { 
+      actionCreator.fetchCompanies(token)(this.props.dispatch).catch(error => {
+        console.error('An error occurred:', error)});
     });
     return promise
   }
