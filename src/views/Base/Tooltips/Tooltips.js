@@ -109,7 +109,7 @@ class Tooltips extends Component {
           </CardHeader>
           <CardBody>
             {this.state.tooltips.map((tooltip, i) => {
-              return <TooltipItem key={i} item={tooltip} id={i} />;
+              return <TooltipItem key={`${tooltip.text}`} item={tooltip} id={i} />;
             })}
           </CardBody>
         </Card>

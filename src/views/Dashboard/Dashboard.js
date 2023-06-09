@@ -62,21 +62,37 @@ class Dashboard extends Component {
     }
   }
 
-  today = new Date()
-
   componentDidMount() {
-    this.projectMapPropsToState()
-  }
+    (async function someFunction() {
+      try {
+        await this.projectMapPropsToState();
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    })();
+    }
 
   projectMapPropsToState = async () => {
     if (
       this.props.projects.length > 0 &&
       !this.state.projectSelected.projectID
     ) {
-      var projectId = this.props.projects[0]
-      this.setProject(projectId)
+      let projectId = this.props.projects[0];
+      (async function someFunction() {
+        try {
+          await this.setProject(projectId);
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      })();
     }
-    this.getGQMdata()
+    (async function someFunction() {
+      try {
+        await this.getGQMdata();
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    })();
   }
 
   getGQMdata = async () => {
@@ -99,22 +115,17 @@ class Dashboard extends Component {
       });
   }
 
-  getQuestionsData = async () => {
-    if (this.state.goalId) {
-      await getQuestions(this.state.goalId)
-        .then(data => {
-          if (data) {
-            if (data.questions.length >= 1) {
-              this.setState({ question1: data.questions[0] })
-            }
-            if (data.questions.length >= 2) {
-              this.setState({ question2: data.questions[1] })
-            }
-            if (data.questions.length === 3) {
-              this.setState({ question3: data.questions[2] })
-            }
-          }
-        });
+  getQuestionsData = async function getQuestionsData() {
+    const { goalId } = this.state;
+    if (!goalId) return;
+  
+    const data = await getQuestions(goalId);
+    if (!data) return;
+  
+    const questions = data.questions;
+    for (let i = 0; i < questions.length && i < 3; i++) {
+      const questionKey = `question${i + 1}`;
+      this.setState({ [questionKey]: questions[i] });
     }
   }
 
@@ -181,7 +192,13 @@ class Dashboard extends Component {
             newArr.push(el)
           }
         }
-        this.setSQProject(newArr[0])
+        (async function someFunction() {
+          try {
+            await this.setSQProject(newArr[0]);
+          } catch (error) {
+            console.error('An error occurred:', error);
+          }
+        })();
         this.setState({ allSQProjects: newArr })
       }
     }
@@ -360,10 +377,14 @@ class Dashboard extends Component {
   }
 
   someFunc = async (p) => {
-    await this.setSQProject(p)
-    this.numOfClassesReturn()
-    this.LOCReturn()
-    this.CodeCoverageReturn()
+    try {
+      await this.setSQProject(p)
+      await this.numOfClassesReturn()
+      await this.LOCReturn()
+      await this.CodeCoverageReturn()
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 
   Loading = () => (
@@ -407,7 +428,8 @@ class Dashboard extends Component {
             <DropdownItem header>Components</DropdownItem>
             {this.state.allSQProjects.map((p) => (
               <DropdownItem key={p.projectName} onClick={() => {
-                this.someFunc(p)
+                this.someFunc(p).catch(error => {
+                  console.error('An error occurred:', error)});
               }}>
                 {p.projectName}
               </DropdownItem>

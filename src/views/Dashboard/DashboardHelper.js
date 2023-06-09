@@ -180,8 +180,16 @@ var sortObjectByKey = function (obj) {
   }
 
   // sort keys
-  keys.sort();
-
+  keys.sort(function(a, b) {
+    if (a < b) {
+      return -1;
+    } else if (a > b) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+  
   // create new array based on Sorted Keys
   keys.forEach((key) => {
     sorted_obj[key] = obj[key];

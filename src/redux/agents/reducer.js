@@ -14,64 +14,32 @@ const initState = fromJS({
 });
 
 export const reducer = (state = initState, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case _.AGENTS:
-      if (action.payload.agentList && action.payload.agentList.length > 0) {
-        return state.set("agents", action.payload.agentList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "agents", payload.agentList);
     case _.METHODS:
-      if (action.payload.methodsList) {
-        return state.set("methods", action.payload.methodsList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "methods", payload.methodsList);
     case _.DETAILS:
-      if (action.payload.detailsList) {
-        return state.set("details", action.payload.detailsList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "details", payload.detailsList);
     case _.RESPONSES:
-      if (action.payload.responseList) {
-        return state.set("responses", action.payload.responseList);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "responses", payload.responseList);
     case _.PROJECT_LIST:
-      if (action.payload.projectList && action.payload.projectList.length > 0) {
-        return state.set("agentProjectList", {
-          [action.payload.agentId]: action.payload.projectList,
-        });
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "agentProjectList", {
+        [payload.agentId]: payload.projectList,
+      });
     case _.GET_AGENT:
-      if (action.payload) {
-        return state.set("agent", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "agent", payload);
     case _.GET_METHOD:
-      if (action.payload) {
-        return state.set("method", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "method", payload);
     case _.GET_RESPONSE:
-      if (action.payload) {
-        return state.set("response", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "response", payload);
     case _.GET_DETAIL:
-      if (action.payload) {
-        return state.set("detail", action.payload);
-      } else {
-        return state;
-      }
+      return setIfPayloadExists(state, "detail", payload);
     default:
       return state;
   }
 };
+
+const setIfPayloadExists = (state, key, value) =>
+  value ? state.set(key, value) : state;

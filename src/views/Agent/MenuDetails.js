@@ -54,9 +54,9 @@ class MenuDetails extends Component {
                     <td><strong>requestParam</strong></td>
                     <td><strong>isActive</strong></td>
                   </tr>
-                  {details.map((value, idx) => {
+                  {details.map((value) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToDetails(value.configDetId)}}>
+                      <tr key={`${value.configDetId}`} onClick={()=>{this.goToDetails(value.configDetId)}}>
                         <td>{value.configDetId}</td>
                         <td>{value.paramname}</td>
                         <td>{value.requestparam}</td>

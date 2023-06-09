@@ -61,10 +61,12 @@ class Users extends Component {
   }
 
   submit = () => {
-    const {email, name, telegram} = this.state
+    const {email, name, telegram} = this.state;
     createUserFlow(email, name, telegram).then((r) => {
       console.log(r)
-    })
+    }).catch(error => {
+      console.error('An error occurred:', error);
+  });
   }
 
   render() {

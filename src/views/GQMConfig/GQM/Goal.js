@@ -26,8 +26,18 @@ class Goal extends React.Component {
         this.handleGoalChange = this.handleGoalChange.bind(this);
     }
 
-    componentWillMount() {
-        this.getGoalData(localStorage.getItem('mr-token'), this.state.userId);
+    loadData() {
+        const promise = new Promise(() => { 
+            this.getGoalData(localStorage.getItem('mr-token'), this.state.userId).catch(error => {
+                console.error('An error occurred:', error)});
+        });
+        return promise
+      }
+     
+    async componentDidMount(){
+    this.loadData().catch(error => {
+        console.error('An error occurred:', error);
+    });
     }
 
     getGoalData = async (token, userId) => {

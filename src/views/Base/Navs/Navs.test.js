@@ -12,7 +12,7 @@ it("toggle click without crashing", () => {
   const wrapper = mount(<Navs />);
   for (let i = 0; i < 2; i++) {
     let Nav = wrapper.find("a.dropdown-toggle").at(i);
-    // Nav.simulate('click');
+    Nav.simulate('click');
     expect(wrapper.state().dropdownOpen[i]).toEqual(true);
   }
   wrapper.unmount();

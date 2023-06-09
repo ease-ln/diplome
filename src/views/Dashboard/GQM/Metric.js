@@ -75,8 +75,8 @@ export default function Metric({
   }
 
   useEffect(() => {
-    let isMounted = true
-    async function exec() {
+    let isMounted = true;
+    (async function exec() {
       if (isMounted) setIsChartLoading(true)
       try {
         const apiData = await api(date, startAndEndDate ? endDate : date, email)
@@ -85,13 +85,11 @@ export default function Metric({
           setOptions(apiData.options)
         }
       } catch (e) {
-        console.error(e)
         setError('Something went wrong.')
       }
       setIsChartLoading(false)
-    }
+    })()
 
-    exec()
     return () => {
       isMounted = false
     }

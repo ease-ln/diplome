@@ -50,9 +50,9 @@ class Menu extends Component {
         <Card>
         <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Integrations</h3>
           <CardBody className="card-grid">
-            {agents.map((value, idx) => {
+            {agents.map((value) => {
               return (
-                <Card key={idx} onClick={ () => {this.goToAgent(value.agentid)} } style={{ padding: "10px", margin: "10px" }}>
+                <Card key={`${value.agentid}`} onClick={ () => {this.goToAgent(value.agentid)} } style={{ padding: "10px", margin: "10px" }}>
                   <div>{this.badge(value.isactive)}</div>
                   <Badge color="secondary">Integration id: {value.agentid}</Badge>
                   <i className="icon-arrow-right icons position-right"></i>
