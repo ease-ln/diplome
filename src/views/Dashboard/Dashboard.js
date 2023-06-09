@@ -65,8 +65,15 @@ class Dashboard extends Component {
   today = new Date()
 
   componentDidMount() {
-    this.projectMapPropsToState()
-  }
+    (async function someFunction() {
+      try {
+        await this.projectMapPropsToState();
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    })();
+    someFunction()
+    }
 
   projectMapPropsToState = async () => {
     if (
@@ -74,9 +81,22 @@ class Dashboard extends Component {
       !this.state.projectSelected.projectID
     ) {
       var projectId = this.props.projects[0]
-      this.setProject(projectId)
+      (async function someFunction() {
+        try {
+          await this.setProject(projectId);
+        } catch (error) {
+          console.error('An error occurred:', error);
+        }
+      })();
+      
     }
-    this.getGQMdata()
+    (async function someFunction() {
+      try {
+        await this.getGQMdata();
+      } catch (error) {
+        console.error('An error occurred:', error);
+      }
+    })();
   }
 
   getGQMdata = async () => {
