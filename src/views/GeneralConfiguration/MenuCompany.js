@@ -59,7 +59,6 @@ class MenuCompany extends Component {
     )} 
     else return (
       <div className="animated fadeIn">
-<<<<<<< HEAD
           <Card>
           <h3 style={{ fontWeight: "bold", margin: "20px", marginBottom: "0px" }}>Companies</h3>
             <CardBody className="card-grid">
@@ -86,38 +85,6 @@ class MenuCompany extends Component {
               Create new company
             </Button>
           </Card>
-=======
-        <Row>
-          <Col lg={6}>
-          <h3 style={{ marginBottom: "20px" }}>List of companies</h3>
-            <Card>
-              <CardBody>
-                <Table responsive striped hover>
-                  <tbody>
-                  <tr>
-                    <td><strong>Company id</strong></td>
-                    <td><strong>Company Name</strong></td>
-                    <td><strong>Updated By</strong></td>
-                    <td><strong>Is Active</strong></td>
-                  </tr>
-                  {companies.map((value) => {
-                    return (
-                      <tr key={`${value.companyid} ${value.companyname}`} onClick={ () => {this.goToCompany(value.companyid)} }>
-                        <td>{value.companyid}</td>
-                        <td>{value.companyname}</td>
-                        <td>{value.updateby}</td>
-                        <td>{this.badge(value.isactive)}</td>
-                      </tr>
-                    )
-                  })}
-                  </tbody>
-                </Table>
-                <Button color="primary" onClick={this.createNewCompany}>Create new company</Button>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
->>>>>>> dcea76ab (smells 0.8)
       </div>
     )
   }
