@@ -71,7 +71,7 @@ class MenuExtProjxTeam extends Component {
                   </tr>
                   {extProjxTeams.map((value, idx) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToExternalProjectxTeam(value.configid)}}>
+                      <tr key={`${value.configid}`} onClick={()=>{this.goToExternalProjectxTeam(value.configid)}}>
                         <td>{value.configid}</td>
                         <td>{agents[idx]}</td>
                         <td>{value.repoid}</td>

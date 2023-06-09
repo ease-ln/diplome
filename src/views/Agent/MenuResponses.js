@@ -54,9 +54,9 @@ class MenuResponses extends Component {
                     <td><strong>Response Param</strong></td>
                     <td><strong>Is Active</strong></td>
                   </tr>
-                  {responses.map((value, idx) => {
+                  {responses.map((value) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToResponses(value.configresponseid)}}>
+                      <tr key={`${value.configresponseid}`} onClick={()=>{this.goToResponses(value.configresponseid)}}>
                         <td>{value.configresponseid}</td>
                         <td>{value.paramname}</td>
                         <td>{value.responseparam}</td>

@@ -71,7 +71,7 @@ class MenuAgxCom extends Component {
                   </tr>
                   {agxComs.map((value, idx) => {
                     return (
-                      <tr key={idx} onClick={()=>{this.goToAgentxCompany(value.configid)}}>
+                      <tr key={`${value.configid}`} onClick={()=>{this.goToAgentxCompany(value.configid)}}>
                         <td>{value.configid}</td>
                         <td>{agents[idx]}</td>
                         <td>{value.key}</td>

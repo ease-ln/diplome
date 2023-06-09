@@ -39,30 +39,39 @@ export const checkForSavedData = (store, history) => {
   const loggedInEmail = localStorage.getItem("innometrics-email");
   const users = localStorage.getItem("users");
 
-  if (
-    savedData &&
-    savedData.token &&
-    jwtDecode(savedData.token).exp < Date.now() / 1000
-  ) {
-    // token expired, relogin
-    history.push("/login");
-  } else if (
-    savedData &&
-    savedData.token &&
-    loggedInEmail &&
-    loggedInEmail.length > 0
-  ) {
+  function checkSavedData(savedData, history, store, loggedInEmail) {
+    if (!savedData || !savedData.token) {
+      return;
+    }
+  
+    const tokenExpired = jwtDecode(savedData.token).exp < Date.now() / 1000;
+    if (tokenExpired) {
+      history.push("/login");
+      return;
+    }
+  
     store.dispatch(authActions.loginSuccess(savedData));
-
-    // Bring activity chart data to redux store
+  
+    fetchActivityChart(store, savedData);
+    fetchCumulativeChart(store, savedData);
+    fetchTimeChart(store, savedData);
+    fetchUsers(store, savedData);
+    fetchProjectsAndAgents(store, savedData, loggedInEmail);
+    fetchPermissions(store, savedData, loggedInEmail);
+  }
+  
+  function fetchActivityChart(store, savedData) {
+    const activitiesData = localStorage.getItem("activities");
     if (activitiesData) {
       const parsedActDate = JSON.parse(activitiesData);
       store.dispatch(activityActions.fetchActions({ report: parsedActDate }));
     } else {
       store.dispatch(report.fetchActivityReport(savedData.token));
     }
-
-    // Bring cumulative chart data to redux store
+  }
+  
+  function fetchCumulativeChart(store, savedData) {
+    const cumulData = localStorage.getItem("cumulative");
     if (cumulData) {
       const parsedCumulData = JSON.parse(cumulData);
       store.dispatch(
@@ -73,31 +82,36 @@ export const checkForSavedData = (store, history) => {
     } else {
       store.dispatch(report.fetchCumulReport(savedData.token, loggedInEmail));
     }
-
-    // Bring time chart data to redux store
+  }
+  
+  function fetchTimeChart(store, savedData) {
+    const timeData = localStorage.getItem("time");
     if (timeData) {
       const parsedTime = JSON.parse(timeData);
       store.dispatch(activityActions.fetchTimeReport({ report: parsedTime }));
     } else {
       store.dispatch(report.fetchTimeReport(savedData.token));
     }
-
-    // Bring users data to redux store
+  }
+  
+  function fetchUsers(store, savedData) {
+    const users = localStorage.getItem("users");
     if (users) {
       const parsedUsers = JSON.parse(users);
       store.dispatch(usersActions.fetchUsers({ userList: parsedUsers }));
     } else {
       store.dispatch(usersActionCreator.fetchUsers(saveData.token));
     }
-
-    // Bring projects and agents to redux store
+  }
+  
+  function fetchProjectsAndAgents(store, savedData, loggedInEmail) {
     const projects = localStorage.getItem("projects");
     const agents = localStorage.getItem("agents");
-
+  
     if (projects && agents) {
       const parsedProjects = JSON.parse(projects);
       const parsedAgents = JSON.parse(agents);
-
+  
       store.dispatch(
         projectActions.fetchProjects({ projectList: parsedProjects })
       );
@@ -105,7 +119,9 @@ export const checkForSavedData = (store, history) => {
     } else if (savedData && savedData.token) {
       store.dispatch(project.fetchProjects(savedData.token, loggedInEmail));
     }
-
+  }
+  
+  function fetchPermissions(store, savedData, loggedInEmail) {
     const permissions = localStorage.getItem("innometrics-permissions");
     if (permissions) {
       const parsedPermissions = JSON.parse(permissions);
@@ -116,4 +132,6 @@ export const checkForSavedData = (store, history) => {
       );
     }
   }
+  
+  checkSavedData(savedData, history, store, loggedInEmail);  
 };
