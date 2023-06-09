@@ -64,7 +64,7 @@ class MenuCompany extends Component {
             <CardBody className="card-grid">
               {companies.map((value, idx) => {
                 return (
-                  <Card key={idx} onClick={ () => {this.goToCompany(value.companyid)} } style={{ padding: "10px", margin: "10px" }}>
+                  <Card key={`${value.companyid}`} onClick={ () => {this.goToCompany(value.companyid)} } style={{ padding: "10px", margin: "10px" }}>
                     <div>{this.badge(value.isactive)}</div>
                     <Badge color="secondary">Company id: {value.companyid}</Badge>
                     <i className="icon-arrow-right icons position-right"></i>

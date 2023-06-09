@@ -62,8 +62,6 @@ class Dashboard extends Component {
     }
   }
 
-  today = new Date()
-
   componentDidMount() {
     (async function someFunction() {
       try {
@@ -117,22 +115,17 @@ class Dashboard extends Component {
       });
   }
 
-  getQuestionsData = async () => {
-    if (this.state.goalId) {
-      await getQuestions(this.state.goalId)
-        .then(data => {
-          if (data) {
-            if (data.questions.length >= 1) {
-              this.setState({ question1: data.questions[0] })
-            }
-            if (data.questions.length >= 2) {
-              this.setState({ question2: data.questions[1] })
-            }
-            if (data.questions.length === 3) {
-              this.setState({ question3: data.questions[2] })
-            }
-          }
-        });
+  getQuestionsData = async function getQuestionsData() {
+    const { goalId } = this.state;
+    if (!goalId) return;
+  
+    const data = await getQuestions(goalId);
+    if (!data) return;
+  
+    const questions = data.questions;
+    for (let i = 0; i < questions.length && i < 3; i++) {
+      const questionKey = `question${i + 1}`;
+      this.setState({ [questionKey]: questions[i] });
     }
   }
 
