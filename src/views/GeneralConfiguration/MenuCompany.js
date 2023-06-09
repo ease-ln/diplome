@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import {
   Card,
   Badge,
@@ -26,9 +26,19 @@ class MenuCompany extends Component {
     this.props.history.push(this.props.history.location.pathname + '/' + id)
   }
 
-  componentDidMount(){
+  loadData(token) {
+    var promise = new Promise((resolve, reject) => { 
+      actionCreator.fetchCompanies(token)(this.props.dispatch);
+    });
+    return promise
+  }
+ 
+
+  async componentDidMount(){
     const token = getData(localStorageKey).token;
-    actionCreator.fetchCompanies(token)(this.props.dispatch)
+    this.loadData(token).catch(error => {
+      console.error('An error occurred:', error);
+    });
   }
 
   badge = (status) => {

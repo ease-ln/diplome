@@ -37,8 +37,18 @@ class DnD extends React.Component {
         droppable4: 'bottomItems',
     }
 
-    componentWillMount() {
-        this.getQuestionsData();
+    loadData() {
+        var promise = new Promise((resolve, reject) => { 
+            this.getQuestionsData();
+        });
+        return promise
+      }
+     
+    
+    async componentDidMount(){
+    this.loadData().catch(error => {
+        console.error('An error occurred:', error);
+    });
     }
 
     getQuestionsData = async () => {
@@ -82,8 +92,9 @@ class DnD extends React.Component {
                 })
         }
 
-        this.formListOfMetrics();
-
+        await this.formListOfMetrics().catch((error) => {
+            console.error("Error occurred while executing Promise:", error)
+        });
     }
 
     formListOfMetrics = async () => {
@@ -181,7 +192,9 @@ class DnD extends React.Component {
 
     saveMetricsForQuestion = async (metrics, id) => {
         if (id !== null) {
-            assignMetricsToQuestion(metrics, id)
+            await assignMetricsToQuestion(metrics, id).catch((error) => {
+                console.error("Error occurred while executing Promise:", error)
+            });
         }
     }
 
