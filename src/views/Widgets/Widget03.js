@@ -18,7 +18,10 @@ class Widget03 extends Component {
   render() {
 
     // eslint-disable-next-line
-    const { children, className, cssModule, dataBox, ..._ } = this.props;
+    const children = this.props.children;
+    const className = this.props.className;
+    const cssModule = this.props.cssModule;
+    const dataBox = this.props.dataBox;
 
     // demo purposes only
     const data = dataBox();
