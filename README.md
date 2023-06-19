@@ -84,5 +84,5 @@ Here are the steps to deploy those applications on your machine with proper auto
 Contact us via email info@innometric.guru
 
 ## Acknowledgement
-[aldeeyar]https://github.com/aldeeyar/innometrics-info/blob/main/instructions.md) thanks for Automated Deploy documentation
+[aldeeyar](https://github.com/aldeeyar/innometrics-info/blob/main/instructions.md) thanks for Automated Deploy documentation
 
