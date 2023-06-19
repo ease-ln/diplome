@@ -1,5 +1,3 @@
-![visitors](https://visitor-badge.glitch.me/badge?page_id=page.id) 
-[![](https://tokei.rs/b1/github/XAMPPRocky/tokei)](https://github.com/InnopolisUniversity/innometrics-dashboard/edit/master).
 ![GitHub issues](https://img.shields.io/github/issues/shaxri/NlpWithNeuralNetwork)
 ![Website](https://img.shields.io/website?up_color=red&up_message=Online&url=https%3A%2F%2Finnometrics.ru%2F%23innometrics-subscribe)
 ![GitHub forks](https://img.shields.io/github/forks/shaxri/NlpWithNeuralNetwork?style=social)
@@ -44,22 +42,43 @@ Gaining insights from the development process has never been easier. [Dashboard]
 ## Links
 
 * [Dashboard](https://innometrics-12856.firebaseapp.com/#/login)
-
 * [Backend source code](https://github.com/InnopolisUniversity/innometrics-backend)
-
 * [API](https://github.com/InnopolisUniversity/innometrics-backend/blob/master/documentation.yaml)
   (Access readable format by pasting `documentation.yaml` data to https://editor.swagger.io)
 * [Here](https://drive.google.com/file/d/1ghOf4uXLN9Nl4MYenroQuLhQ3GPfZMZW/view?usp=sharing) you can read about PRIVACY NOTICE of Innometrics system.
-*  [Website](https://innometrics.ru/)
+*  [Website](http://51.250.3.9:3000/dashboard)
 <p align="center">
 <img width="800" height="500" src="https://github.com/InnopolisUniversity/innometrics-dashboard/blob/master/Innometrics_website.png" alt="Innometrics website"></a>
 <p>
 
-## Installation
+## Monitoring
+* [SonarCloud](https://sonarcloud.io/project/overview?id=ease-ln_diplome)
+* [Yandex.Metrika](https://metrika.yandex.ru/dashboard?id=93655705)
+* [Uptimia](https://www.uptimia.com/cp)
+* [Lighthouse]() 
+     * On every push to the main branch LightHouse CI pipline created, on the last step the link like 'Open the report at ...' exist
 
+## Installation
 1. `yarn`
 2. `yarn start` to boot up a development server
 3. Visit the link found in your terminal after running `yarn start`.
+
+## Automated Deploy
+
+Here are the steps to deploy those applications on your machine with proper automated deployment
+* Install [Dokku](https://dokku.com/docs/getting-started/installation/) on your server machine
+* Add the DockerHub credentials to the GitHub secrets
+* Create applications and git repos on Dokku:
+    ```
+    sudo dokku apps:create <appname>
+    sudo dokku git:initialize  <appname>
+* Change appname in github workflow to the one of your choice.
+* Add private ssh key of your machine to github actions secrets using key SSH_PRIVATE_KEY
+* Change dokku server ip in repository workflow
+* Change docker registry in repository workflow
+* Then merge/push to main branch
+* Profit.
+
 
 ## Have Question or Feedback?
 Contact us via email info@innometric.guru
