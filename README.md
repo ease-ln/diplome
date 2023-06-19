@@ -64,8 +64,15 @@ Gaining insights from the development process has never been easier. [Dashboard]
 3. Visit the link found in your terminal after running `yarn start`.
 
 ## Automated Deploy
+### Virtual Machine recommendations
+* Platform% Intel Ice Lake
+* vCPU 2
+* RAM 2 GB
+*  Disk space 10 GB
 
+### The process
 Here are the steps to deploy those applications on your machine with proper automated deployment
+
 * Install [Dokku](https://dokku.com/docs/getting-started/installation/) on your server machine
 * Add the DockerHub credentials to the GitHub secrets
 * Create applications and git repos on Dokku:
